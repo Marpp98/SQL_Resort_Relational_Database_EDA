@@ -1,7 +1,7 @@
 cliente_id,nombre,apellidos,email,telefono,pais
 1,Lauren,Chen,lauren.chen@gmail.com,+90 018 313 428,TUR
 2,Joseph,Ross,joseph.ross@gmail.com,+51 708 869 551,PER
-3,Dr.,Katie Stephenson,dr..katie stephenson@gmail.com,+39 553 611 874,ITA
+3,Katie,Stephenson,katie.stephenson@gmail.com,+39 553 611 874,ITA
 4,Taylor,Todd,taylor.todd@gmail.com,+421 413 443 593,SVK
 5,Shelley,Lowe,shelley.lowe@gmail.com,+598 209 660 236,URY
 6,Michael,Greene,michael.greene@gmail.com,+7 209 852 702,RUS
@@ -13,7 +13,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 12,Michael,Cortez,michael.cortez@gmail.com,+597 013 079 057,SUR
 13,Kristen,Coleman,kristen.coleman@gmail.com,+1 961 854 160,JAM
 14,Elizabeth,Gonzalez,elizabeth.gonzalez@gmail.com,+7 869 236 151,KAZ
-15,Mr.,Jason Farley DVM,mr..jason farley dvm@gmail.com,+244 937 034 605,AGO
+15,Jason,Farley ,jason.farley@gmail.com,+244 937 034 605,AGO
 16,Jacob,Weaver,jacob.weaver@gmail.com,+48 302 078 057,POL
 17,Stacey,Snow,stacey.snow@gmail.com,+351 105 004 449,PRT
 18,Natasha,Walker,natasha.walker@gmail.com,+351 859 002 647,PRT
@@ -152,7 +152,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 151,Christian,Ferguson,christian.ferguson@gmail.com,+1 709 527 102,PRI
 152,Robert,Pittman,robert.pittman@gmail.com,+973 916 652 903,BHR
 153,Randy,Ryan,randy.ryan@gmail.com,+963 944 599 445,SYR
-154,Dr.,John Smith,dr..john smith@gmail.com,+244 314 125 007,AGO
+154,John,Smith,john.smith@gmail.com,+244 314 125 007,AGO
 155,Cristina,Bishop,cristina.bishop@gmail.com,+213 414 426 247,DZA
 156,Carolyn,Johnson,carolyn.johnson@gmail.com,+34 075 826 307,ESP
 157,Thomas,Daniels,thomas.daniels@gmail.com,+44 858 537 623,JEY
@@ -180,14 +180,14 @@ cliente_id,nombre,apellidos,email,telefono,pais
 179,Jason,Lopez,jason.lopez@gmail.com,+351 512 737 769,PRT
 180,Barbara,Mccormick,barbara.mccormick@gmail.com,+965 365 688 355,KWT
 181,Hailey,Berg,hailey.berg@gmail.com,+7 158 997 656,RUS
-182,Mrs.,Jennifer Soto,mrs..jennifer soto@gmail.com,+254 454 654 336,KEN
+182,Jennifer,Soto,jennifer.soto@gmail.com,+254 454 654 336,KEN
 183,Julia,Hurley,julia.hurley@gmail.com,+351 959 767 252,PRT
 184,Susan,Cooke,susan.cooke@gmail.com,+994 430 048 854,AZE
 185,Brian,Morgan,brian.morgan@gmail.com,+372 340 424 103,EST
 186,Gregory,Dominguez,gregory.dominguez@gmail.com,+420 653 918 623,CZE
 187,Mary,Eaton,mary.eaton@gmail.com,+960 793 462 357,MDV
 188,David,Ford,david.ford@gmail.com,+7 834 088 957,KAZ
-189,Mr.,Jared Butler,mr..jared butler@gmail.com,+357 141 187 844,CYP
+189,Jared,Butler,jared.butler@gmail.com,+357 141 187 844,CYP
 190,Justin,Zhang,justin.zhang@gmail.com,+251 389 800 620,ETH
 191,Kelsey,Whitehead,kelsey.whitehead@gmail.com,+853 359 677 546,MAC
 192,Jennifer,Martin,jennifer.martin@gmail.com,+370 792 111 389,LTU
@@ -233,7 +233,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 232,Steven,Thompson,steven.thompson@gmail.com,+351 591 518 962,PRT
 233,Maria,Yang,maria.yang@gmail.com,+298 512 130 348,FRO
 234,Jasmine,Hernandez,jasmine.hernandez@gmail.com,+380 928 828 389,UKR
-235,Mr.,Joshua Marquez Jr.,mr..joshua marquez jr.@gmail.com,+58 259 137 688,VEN
+235,Joshua,Marquez Jr.,joshua.marquez@gmail.com,+58 259 137 688,VEN
 236,Donna,Figueroa,donna.figueroa@gmail.com,+974 094 023 662,QAT
 237,Jason,Davidson,jason.davidson@gmail.com,+351 556 471 327,PRT
 238,Lauren,Mcintosh,lauren.mcintosh@gmail.com,+53 472 936 499,CUB
@@ -325,7 +325,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 324,William,Lewis,william.lewis@gmail.com,+350 058 494 962,GIB
 325,Noah,Bates,noah.bates@gmail.com,+354 555 472 561,ISL
 326,Christine,Velez,christine.velez@gmail.com,+351 778 989 325,PRT
-327,Mr.,Christian May,mr..christian may@gmail.com,+47 149 592 259,NOR
+327,Christian,May,christian.may@gmail.com,+47 149 592 259,NOR
 328,Jessica,Poole,jessica.poole@gmail.com,+244 613 799 071,AGO
 329,Steven,Willis,steven.willis@gmail.com,+258 380 534 410,MOZ
 330,Steven,Higgins,steven.higgins@gmail.com,+355 572 035 449,ALB
@@ -424,7 +424,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 423,Brittany,Reed,brittany.reed@gmail.com,+30 398 211 525,GRC
 424,Elizabeth,Woods,elizabeth.woods@gmail.com,+84 534 019 709,VNM
 425,Danny,Pope,danny.pope@gmail.com,+48 072 322 023,POL
-426,Mr.,Kenneth Jackson MD,mr..kenneth jackson md@gmail.com,+1 342 058 330,JAM
+426,Kenneth,Jackson,kenneth.jackson@gmail.com,+1 342 058 330,JAM
 427,Kim,Brown,kim.brown@gmail.com,+595 328 709 698,PRY
 428,Tammy,Cole,tammy.cole@gmail.com,+63 451 870 902,PHL
 429,Jodi,Andrews,jodi.andrews@gmail.com,+352 177 716 442,LUX
@@ -489,7 +489,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 488,Brianna,Bradley,brianna.bradley@gmail.com,+382 059 484 891,MNE
 489,Ashley,Hernandez,ashley.hernandez@gmail.com,+40 575 709 946,ROU
 490,Kelsey,Mccormick,kelsey.mccormick@gmail.com,+43 646 024 194,AUT
-491,Dr.,James Miller DDS,dr..james miller dds@gmail.com,+593 819 017 271,ECU
+491,James,Miller,james.miller@gmail.com,+593 819 017 271,ECU
 492,Elaine,Thompson,elaine.thompson@gmail.com,+39 317 344 260,ITA
 493,Stanley,Tran,stanley.tran@gmail.com,+358 567 854 640,FIN
 494,Michael,Townsend,michael.townsend@gmail.com,+54 304 890 358,ARG
@@ -526,7 +526,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 525,Erin,Morgan,erin.morgan@gmail.com,+64 417 325 497,NZL
 526,Matthew,King,matthew.king@gmail.com,+236 142 139 078,CAF
 527,Kendra,Gilmore,kendra.gilmore@gmail.com,+998 681 897 848,UZB
-528,Mr.,Spencer Nguyen Jr.,mr..spencer nguyen jr.@gmail.com,+351 150 082 359,PRT
+528,Spencer,Nguyen Jr.,spencer.nguyenjr@gmail.com,+351 150 082 359,PRT
 529,Kathleen,Lewis,kathleen.lewis@gmail.com,+351 616 236 959,PRT
 530,James,Johnson,james.johnson@gmail.com,+44 769 544 825,JEY
 531,Allison,Kennedy,allison.kennedy@gmail.com,+39 774 224 549,ITA
@@ -587,7 +587,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 586,Kathryn,Brown,kathryn.brown@gmail.com,+41 360 945 992,CHE
 587,Sylvia,Dorsey,sylvia.dorsey@gmail.com,+371 734 249 126,LVA
 588,Shannon,Mcdaniel,shannon.mcdaniel@gmail.com,+351 445 572 123,PRT
-589,Mrs.,Sheila Simmons,mrs..sheila simmons@gmail.com,+238 924 690 520,CPV
+589,Sheila,Simmons,sheila.simmons@gmail.com,+238 924 690 520,CPV
 590,Jesse,Gibbs,jesse.gibbs@gmail.com,+48 935 740 323,POL
 591,Kim,Hancock,kim.hancock@gmail.com,+86 618 919 796,CHN
 592,Jesse,Wagner,jesse.wagner@gmail.com,+598 129 668 484,URY
@@ -596,7 +596,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 595,James,Wilkinson,james.wilkinson@gmail.com,+81 474 730 916,JPN
 596,Christian,Wood,christian.wood@gmail.com,+965 112 542 274,KWT
 597,Dustin,Arellano,dustin.arellano@gmail.com,+852 061 781 353,HKG
-598,Mrs.,Ashley Brown,mrs..ashley brown@gmail.com,+351 124 146 338,PRT
+598,Ashley,Brown,ashley brown@gmail.com,+351 124 146 338,PRT
 599,Brian,Fischer,brian.fischer@gmail.com,+84 465 549 096,VNM
 600,Leslie,Johnson,leslie.johnson@gmail.com,+351 880 224 377,PRT
 601,Lorraine,Smith,lorraine.smith@gmail.com,+359 944 295 616,BGR
@@ -646,7 +646,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 645,Heather,Smith,heather.smith@gmail.com,+372 272 990 509,EST
 646,Philip,Ford,philip.ford@gmail.com,+966 083 291 264,SAU
 647,Joseph,Harvey,joseph.harvey@gmail.com,+385 995 334 073,HRV
-648,Mr.,Gilbert Gonzalez,mr..gilbert gonzalez@gmail.com,+57 932 155 144,COL
+648,Gilbert,Gonzalez,gilbert gonzalez@gmail.com,+57 932 155 144,COL
 649,Miss,Suzanne Weber,miss.suzanne weber@gmail.com,+47 355 084 149,NOR
 650,Kayla,Jackson,kayla.jackson@gmail.com,+351 672 297 349,PRT
 651,Sarah,Parker,sarah.parker@gmail.com,+591 776 607 632,BOL
@@ -665,7 +665,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 664,Kristina,Harvey,kristina.harvey@gmail.com,+506 086 559 395,CRI
 665,Dana,Decker,dana.decker@gmail.com,+258 226 031 491,MOZ
 666,William,Miller,william.miller@gmail.com,+971 698 976 005,ARE
-667,Mr.,Sean Pearson,mr..sean pearson@gmail.com,+386 619 517 183,SVN
+667,Sean,Pearson,sean.pearson@gmail.com,+386 619 517 183,SVN
 668,Austin,Bryant,austin.bryant@gmail.com,+351 224 249 638,PRT
 669,Brenda,Bauer,brenda.bauer@gmail.com,+389 075 579 119,MKD
 670,Heather,Gomez,heather.gomez@gmail.com,+1 713 325 193,JAM
@@ -679,7 +679,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 678,Cathy,Roberts,cathy.roberts@gmail.com,+245 481 422 020,GNB
 679,Debbie,Hoffman,debbie.hoffman@gmail.com,+84 260 064 208,VNM
 680,Elizabeth,Meyer,elizabeth.meyer@gmail.com,+598 382 953 400,URY
-681,Mr.,Glen Wyatt,mr..glen wyatt@gmail.com,+351 402 877 837,PRT
+681,Glen,Wyatt,glen.wyatt@gmail.com,+351 402 877 837,PRT
 682,Cheryl,Johnson,cheryl.johnson@gmail.com,+46 877 187 592,SWE
 683,Christopher,Adams,christopher.adams@gmail.com,+353 963 816 372,IRL
 684,Samuel,Adkins,samuel.adkins@gmail.com,+20 031 575 148,EGY
@@ -761,7 +761,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 760,Ronnie,Morgan,ronnie.morgan@gmail.com,+421 315 131 950,SVK
 761,James,Cannon,james.cannon@gmail.com,+382 071 242 895,MNE
 762,Colin,Schneider,colin.schneider@gmail.com,+234 279 866 030,NGA
-763,Mr.,Hunter Smith,mr..hunter smith@gmail.com,+230 860 020 812,MUS
+763,Hunter,Smith,hunter.smith@gmail.com,+230 860 020 812,MUS
 764,Karen,Jenkins,karen.jenkins@gmail.com,+351 767 650 518,PRT
 765,Allen,Mejia,allen.mejia@gmail.com,+351 681 513 565,PRT
 766,David,Keith,david.keith@gmail.com,+254 733 481 286,KEN
@@ -838,7 +838,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 837,Shawna,Medina,shawna.medina@gmail.com,+56 430 507 143,CHL
 838,Andrew,Brown,andrew.brown@gmail.com,+351 407 367 775,PRT
 839,Victoria,Johnson,victoria.johnson@gmail.com,+351 351 541 352,PRT
-840,Mr.,Edgar Bennett,mr..edgar bennett@gmail.com,+33 530 643 012,FRA
+840,Edgar,Bennett,edgar.bennett@gmail.com,+33 530 643 012,FRA
 841,Jessica,Coleman,jessica.coleman@gmail.com,+47 337 384 241,NOR
 842,Madeline,Fisher,madeline.fisher@gmail.com,+358 311 867 019,FIN
 843,Hannah,Morgan,hannah.morgan@gmail.com,+56 822 216 460,CHL
@@ -853,7 +853,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 852,Tiffany,Wilson,tiffany.wilson@gmail.com,+371 929 179 919,LVA
 853,Ann,Swanson,ann.swanson@gmail.com,+45 441 835 205,DNK
 854,Connie,Scott,connie.scott@gmail.com,+27 624 468 414,ZAF
-855,Mr.,Bryan Taylor,mr..bryan taylor@gmail.com,+51 958 442 670,PER
+855,Bryan,Taylor,bryan.taylor@gmail.com,+51 958 442 670,PER
 856,Michael,Rocha,michael.rocha@gmail.com,+54 251 446 653,ARG
 857,Rodney,Price,rodney.price@gmail.com,+351 919 061 329,PRT
 858,Randy,Cross,randy.cross@gmail.com,+356 511 728 168,MLT
@@ -895,7 +895,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 894,Ronald,Peters,ronald.peters@gmail.com,+51 613 725 526,PER
 895,Paige,Perez,paige.perez@gmail.com,+94 264 781 807,LKA
 896,Michelle,Myers,michelle.myers@gmail.com,+371 742 099 244,LVA
-897,Mr.,Jeremy Jackson Jr.,mr..jeremy jackson jr.@gmail.com,+972 064 579 301,ISR
+897,Jeremy,Jackson Jr.,jeremy.jackson@gmail.com,+972 064 579 301,ISR
 898,Mary,Donaldson,mary.donaldson@gmail.com,+262 715 454 895,MYT
 899,Roger,Lucas,roger.lucas@gmail.com,+51 167 866 887,PER
 900,Mary,Stewart,mary.stewart@gmail.com,+351 350 011 904,PRT
@@ -935,7 +935,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 934,Kyle,Alexander,kyle.alexander@gmail.com,+225 561 778 241,CIV
 935,Nicole,Little,nicole.little@gmail.com,+34 516 814 103,ESP
 936,Rachel,Schneider,rachel.schneider@gmail.com,+20 616 711 142,EGY
-937,Mr.,John Turner,mr..john turner@gmail.com,+351 954 382 454,PRT
+937,John,Turner,john.turner@gmail.com,+351 954 382 454,PRT
 938,Katrina,Lopez,katrina.lopez@gmail.com,+52 173 313 159,MEX
 939,Melissa,Lloyd,melissa.lloyd@gmail.com,+351 488 908 111,PRT
 940,James,Miller,james.miller@gmail.com,+7 394 814 680,KAZ
@@ -1025,7 +1025,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1024,Duane,Burton,duane.burton@gmail.com,+45 589 585 599,DNK
 1025,Timothy,Mckee,timothy.mckee@gmail.com,+387 888 357 479,BIH
 1026,Mary,Olson,mary.olson@gmail.com,+351 479 167 845,PRT
-1027,Mr.,Stephen Callahan,mr..stephen callahan@gmail.com,+506 677 145 579,CRI
+1027,Stephen,Callahan,stephen.callahan@gmail.com,+506 677 145 579,CRI
 1028,Deanna,Potter,deanna.potter@gmail.com,+995 195 076 188,GEO
 1029,Marcus,Smith,marcus.smith@gmail.com,+40 656 884 325,ROU
 1030,Jose,Mccarthy,jose.mccarthy@gmail.com,+356 481 740 496,MLT
@@ -1114,7 +1114,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1113,Charles,Ward,charles.ward@gmail.com,+216 037 057 977,TUN
 1114,Lisa,Garcia,lisa.garcia@gmail.com,+216 087 753 002,TUN
 1115,Michael,Lee,michael.lee@gmail.com,+20 206 818 824,EGY
-1116,Mr.,Kenneth Thompson,mr..kenneth thompson@gmail.com,+351 219 713 526,PRT
+1116,Kenneth,Thompson,kenneth.thompson@gmail.com,+351 219 713 526,PRT
 1117,John,Snow,john.snow@gmail.com,+258 203 851 815,MOZ
 1118,Levi,Hernandez,levi.hernandez@gmail.com,+886 863 587 915,TWN
 1119,Nicole,Gomez,nicole.gomez@gmail.com,+81 699 393 663,JPN
@@ -1161,7 +1161,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1160,Laura,Hinton,laura.hinton@gmail.com,+49 171 038 356,DEU
 1161,Richard,Kennedy,richard.kennedy@gmail.com,+254 382 016 119,KEN
 1162,Karen,Garcia,karen.garcia@gmail.com,+254 976 570 343,KEN
-1163,Dr.,Michael Jacobson,dr..michael jacobson@gmail.com,+351 174 642 610,PRT
+1163,Michael,Jacobson,michael.jacobson@gmail.com,+351 174 642 610,PRT
 1164,Caitlin,Russell,caitlin.russell@gmail.com,+973 143 824 982,BHR
 1165,Jasmine,Shepherd,jasmine.shepherd@gmail.com,+389 140 557 949,MKD
 1166,Brenda,Mcmillan,brenda.mcmillan@gmail.com,+972 671 439 122,ISR
@@ -1241,13 +1241,13 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1240,Katherine,Young,katherine.young@gmail.com,+351 556 222 424,PRT
 1241,Michael,Cruz,michael.cruz@gmail.com,+51 712 946 552,PER
 1242,Crystal,Fernandez,crystal.fernandez@gmail.com,+372 055 543 970,EST
-1243,Mrs.,Kayla Nguyen,mrs..kayla nguyen@gmail.com,+52 579 402 309,MEX
+1243,Kayla,Nguyen,kayla.nguyen@gmail.com,+52 579 402 309,MEX
 1244,Crystal,Davis,crystal.davis@gmail.com,+351 936 792 254,PRT
 1245,Mary,Taylor,mary.taylor@gmail.com,+351 226 106 430,PRT
 1246,Jesus,Rowe,jesus.rowe@gmail.com,+351 042 420 065,PRT
 1247,Karen,Martinez,karen.martinez@gmail.com,+53 686 024 062,CUB
 1248,Nicole,Alexander,nicole.alexander@gmail.com,+351 865 873 452,PRT
-1249,Mrs.,Alicia Frazier,mrs..alicia frazier@gmail.com,+245 123 570 315,GNB
+1249,Alicia,Frazier,alicia.frazier@gmail.com,+245 123 570 315,GNB
 1250,Ryan,Collins,ryan.collins@gmail.com,+358 136 383 546,FIN
 1251,Stephanie,Nash,stephanie.nash@gmail.com,+98 250 901 123,IRN
 1252,Joshua,Buchanan,joshua.buchanan@gmail.com,+94 780 359 927,LKA
@@ -1300,7 +1300,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1299,Shannon,Mcdonald,shannon.mcdonald@gmail.com,+880 127 529 491,BGD
 1300,Belinda,Pierce,belinda.pierce@gmail.com,+381 788 965 533,SRB
 1301,Brian,Conner,brian.conner@gmail.com,+351 712 137 706,PRT
-1302,Mrs.,Hannah Velasquez DVM,mrs..hannah velasquez dvm@gmail.com,+65 233 243 882,SGP
+1302,Hannah,Velasquez ,hannah.velasquez@gmail.com,+65 233 243 882,SGP
 1303,Jessica,Wiggins,jessica.wiggins@gmail.com,+354 780 741 162,ISL
 1304,Shelby,Ellison,shelby.ellison@gmail.com,+351 365 808 085,PRT
 1305,Jennifer,Herring,jennifer.herring@gmail.com,+351 999 624 527,PRT
@@ -1362,7 +1362,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1361,Justin,Farley,justin.farley@gmail.com,+53 201 716 635,CUB
 1362,Anne,Kane,anne.kane@gmail.com,+960 963 027 982,MDV
 1363,Stephanie,Lee,stephanie.lee@gmail.com,+376 728 265 397,AND
-1364,Mr.,Stanley Brown,mr..stanley brown@gmail.com,+245 973 054 215,GNB
+1364,Stanley,Brown,stanley.brown@gmail.com,+245 973 054 215,GNB
 1365,Joshua,Davis,joshua.davis@gmail.com,+886 937 791 863,TWN
 1366,Ryan,Martinez,ryan.martinez@gmail.com,+593 944 137 123,ECU
 1367,Christopher,Hernandez,christopher.hernandez@gmail.com,+994 020 568 895,AZE
@@ -1519,10 +1519,10 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1518,Thomas,Parker,thomas.parker@gmail.com,+593 455 424 349,ECU
 1519,Kimberly,Morris,kimberly.morris@gmail.com,+64 608 472 285,NZL
 1520,Patricia,Brown,patricia.brown@gmail.com,+351 688 798 802,PRT
-1521,Mrs.,Amber Phillips,mrs..amber phillips@gmail.com,+41 727 956 301,CHE
+1521,Amber,Phillips,amber.phillips@gmail.com,+41 727 956 301,CHE
 1522,Diamond,Lewis,diamond.lewis@gmail.com,+43 989 827 968,AUT
 1523,Timothy,Liu,timothy.liu@gmail.com,+54 468 483 969,ARG
-1524,Mr.,Robert Nelson,mr..robert nelson@gmail.com,+351 887 163 400,PRT
+1524,Robert,Nelson,robert.nelson@gmail.com,+351 887 163 400,PRT
 1525,Annette,Gonzales,annette.gonzales@gmail.com,+32 996 709 121,BEL
 1526,Jeffrey,Perry,jeffrey.perry@gmail.com,+34 387 560 752,ESP
 1527,Laura,Jenkins,laura.jenkins@gmail.com,+385 599 918 736,HRV
@@ -1553,9 +1553,9 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1552,Jennifer,Leonard,jennifer.leonard@gmail.com,+351 502 442 438,PRT
 1553,Stacey,Reyes,stacey.reyes@gmail.com,+359 628 751 058,BGR
 1554,Teresa,Mendoza,teresa.mendoza@gmail.com,+43 444 758 646,AUT
-1555,Mr.,David Roy,mr..david roy@gmail.com,+380 488 540 223,UKR
+1555,David,Roy,david.roy@gmail.com,+380 488 540 223,UKR
 1556,Katrina,Turner,katrina.turner@gmail.com,+971 973 572 665,ARE
-1557,Mr.,Keith Austin DDS,mr..keith austin dds@gmail.com,+351 099 610 942,PRT
+1557,Keith,Austin,keith.austin@gmail.com,+351 099 610 942,PRT
 1558,Paul,Castillo,paul.castillo@gmail.com,+49 101 505 209,DEU
 1559,Joshua,Russell,joshua.russell@gmail.com,+351 151 235 415,PRT
 1560,Albert,Baker,albert.baker@gmail.com,+351 053 350 867,PRT
@@ -1593,8 +1593,8 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1592,Peter,Pacheco,peter.pacheco@gmail.com,+354 246 020 400,ISL
 1593,Virginia,Sexton,virginia.sexton@gmail.com,+351 252 635 623,PRT
 1594,Patricia,Moore,patricia.moore@gmail.com,+1 078 508 958,BRB
-1595,Mr.,Joseph Andrews MD,mr..joseph andrews md@gmail.com,+91 538 142 526,IND
-1596,Dr.,Jennifer Dyer,dr..jennifer dyer@gmail.com,+387 449 230 358,BIH
+1595,Joseph,Andrews,joseph.andrews@gmail.com,+91 538 142 526,IND
+1596,Jennifer,Dyer,jennifer.dyer@gmail.com,+387 449 230 358,BIH
 1597,Tyler,Davis,tyler.davis@gmail.com,+65 797 869 900,SGP
 1598,Thomas,Peterson,thomas.peterson@gmail.com,+352 560 353 724,LUX
 1599,Pamela,Proctor,pamela.proctor@gmail.com,+61 816 849 075,AUS
@@ -1719,10 +1719,10 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1718,Mark,Price,mark.price@gmail.com,+351 518 578 668,PRT
 1719,Joe,Hart,joe.hart@gmail.com,+1 649 498 910,USA
 1720,Amy,Taylor,amy.taylor@gmail.com,+212 509 337 802,MAR
-1721,Mrs.,Theresa Nicholson,mrs..theresa nicholson@gmail.com,+960 917 640 911,MDV
+1721,Theresa,Nicholson,theresa.nicholson@gmail.com,+960 917 640 911,MDV
 1722,Michelle,Blake,michelle.blake@gmail.com,+94 114 110 567,LKA
 1723,Sharon,Vargas,sharon.vargas@gmail.com,+60 970 376 250,MYS
-1724,Mr.,Stephen Wilkinson,mr..stephen wilkinson@gmail.com,+94 296 308 529,LKA
+1724,Stephen,Wilkinson,stephen.wilkinson@gmail.com,+94 296 308 529,LKA
 1725,Danielle,Reed,danielle.reed@gmail.com,+255 997 154 789,TZA
 1726,James,Marshall,james.marshall@gmail.com,+852 171 759 327,HKG
 1727,Julie,Ramos,julie.ramos@gmail.com,+974 222 690 312,QAT
@@ -1779,7 +1779,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1778,Joanne,Lane,joanne.lane@gmail.com,+351 099 041 109,PRT
 1779,Shannon,Sparks,shannon.sparks@gmail.com,+506 597 853 272,CRI
 1780,Frances,Matthews,frances.matthews@gmail.com,+351 896 522 030,PRT
-1781,Adam,Griffin III,adam.griffin iii@gmail.com,+237 385 296 188,CMR
+1781,Adam,Griffin,adam.griffin@gmail.com,+237 385 296 188,CMR
 1782,Kevin,Jones,kevin.jones@gmail.com,+974 453 448 776,QAT
 1783,Sarah,Snow,sarah.snow@gmail.com,+55 227 101 813,BRA
 1784,Debbie,Thomas,debbie.thomas@gmail.com,+238 105 124 853,CPV
@@ -1835,7 +1835,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1834,Justin,Roberts,justin.roberts@gmail.com,+351 651 073 473,PRT
 1835,William,Perez,william.perez@gmail.com,+853 565 915 175,MAC
 1836,Anthony,Figueroa,anthony.figueroa@gmail.com,+254 935 985 723,KEN
-1837,Dr.,Rick Kelly DDS,dr..rick kelly dds@gmail.com,+39 986 970 585,ITA
+1837,Rick,Kelly,rick.kelly dds@gmail.com,+39 986 970 585,ITA
 1838,Thomas,Oliver,thomas.oliver@gmail.com,+58 790 588 215,VEN
 1839,Brian,Cohen,brian.cohen@gmail.com,+964 560 091 632,IRQ
 1840,Ray,Baker,ray.baker@gmail.com,+94 923 355 127,LKA
@@ -1873,7 +1873,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1872,Nicole,Baker,nicole.baker@gmail.com,+965 075 090 400,KWT
 1873,Susan,Wood,susan.wood@gmail.com,+852 750 510 880,HKG
 1874,Teresa,Ellis,teresa.ellis@gmail.com,+27 561 070 024,ZAF
-1875,Dr.,Devin Rice,dr..devin rice@gmail.com,+995 530 705 976,GEO
+1875,Devin,Rice,devin.rice@gmail.com,+995 530 705 976,GEO
 1876,Drew,Flores,drew.flores@gmail.com,+387 803 024 913,BIH
 1877,Nicole,White,nicole.white@gmail.com,+376 132 984 481,AND
 1878,Mary,Lloyd,mary.lloyd@gmail.com,+968 127 816 237,OMN
@@ -1911,7 +1911,7 @@ cliente_id,nombre,apellidos,email,telefono,pais
 1910,William,Morris,william.morris@gmail.com,+971 178 886 879,ARE
 1911,Logan,Cooper,logan.cooper@gmail.com,+27 198 590 861,ZAF
 1912,Franklin,Shaffer,franklin.shaffer@gmail.com,+351 619 184 883,PRT
-1913,Dr.,Sheila Hernandez,dr..sheila hernandez@gmail.com,+81 535 206 284,JPN
+1913,Sheila,Hernandez,sheila.hernandez@gmail.com,+81 535 206 284,JPN
 1914,Jill,Hughes,jill.hughes@gmail.com,+351 858 899 738,PRT
 1915,Justin,Burgess,justin.burgess@gmail.com,+46 566 004 571,SWE
 1916,Gerald,Bauer,gerald.bauer@gmail.com,+1 000 695 550,PRI
