@@ -7,18 +7,29 @@ INSERT INTO servicios (id_servicio, tipo_servicio) VALUES
 (4, 'Excusriones');
 
 -- Los datos de la tabla clientes han sido importados mediante table Data Import Wizard desde clientes.csv
+-- Los datos de la tabla habitaciones han sido importados mediante table Data Import Wizard desde habitaciones.csv
 
-select * from servicios;
-SELECT * FROM clientes;
-select * from habitaciones;
 
 INSERT INTO canales (id_canal, canal_distribucion) VALUES
-(1, 'Web_Propia'),
-(2, 'Call_Center/Recepcion'),
-(3, 'Agencia_Viajes_Online'),
-(4, 'Agencia_Viajes_Offline'),
-(5, 'Corporativo/GDS'),
-(6, 'Touroperadores'),
-(7, 'MICE_Grupos_Eventos');
+(1, 'Direct'),
+(2, 'TA/TO'),
+(3, 'Corporate'),
+(4, 'GDS'),
+(5, 'Otros');
 
+-- Los datos de la tabla reservas han sido importados mediante table Data Import Wizard desde reservas.csv
+-- Los datos de la tabla servicio_parking han sido importados mediante table Data Import Wizard desde parking.csv
+
+select * from habitaciones;
 select * from canales;
+select * from servicios;
+select * from servicio_parking;
+select * from clientes;
+select * from reservas;
+
+SHOW VARIABLES LIKE 'local_infile';
+
+SET FOREIGN_KEY_CHECKS = 0;  -- desactiva temporalmente FK
+TRUNCATE TABLE reservas;      -- vacía toda la tabla
+SET FOREIGN_KEY_CHECKS = 1;  -- vuelve a activar FK
+
