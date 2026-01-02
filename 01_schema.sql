@@ -15,21 +15,26 @@ USE resort_hotelero;
 /*============================================
 		Eliminación de tablas
 ============================================*/
+SET FOREIGN_KEY_CHECKS = 0;
+
 DROP TABLE IF EXISTS servicio_spa;
 DROP TABLE IF EXISTS servicio_comida;
 DROP TABLE IF EXISTS servicio_parking;
 DROP TABLE IF EXISTS reservas;
-DROP TABLE IF EXISTS servicios;
 DROP TABLE IF EXISTS canales;
 DROP TABLE IF EXISTS habitaciones;
 DROP TABLE IF EXISTS clientes;
+DROP TABLE IF EXISTS servicios;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 /*============================================
 		Creación de tablas
 ============================================*/
 
 CREATE TABLE IF NOT EXISTS clientes (
-    id_cliente INT PRIMARY KEY,
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE,
@@ -44,12 +49,12 @@ CREATE TABLE IF NOT EXISTS habitaciones (
 );
 
 CREATE TABLE IF NOT EXISTS canales (
-    id_canal INT PRIMARY KEY,
+    id_canal INT AUTO_INCREMENT PRIMARY KEY,
     canal_distribucion VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS servicios (
-    id_servicio INT PRIMARY KEY,
+    id_servicio INT AUTO_INCREMENT PRIMARY KEY,
     tipo_servicio VARCHAR(50) NOT NULL UNIQUE
 );
 
@@ -58,7 +63,7 @@ CREATE TABLE IF NOT EXISTS servicios (
 ============================================*/
 
 CREATE TABLE IF NOT EXISTS reservas (
-    id_reserva INT PRIMARY KEY,
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT NOT NULL,
     id_habitacion INT NOT NULL,
     id_canal INT NOT NULL,
@@ -87,48 +92,49 @@ CREATE TABLE IF NOT EXISTS reservas (
 		Creación de servicios(subtipos)
 ============================================*/
 CREATE TABLE IF NOT EXISTS servicio_parking (
-    servicio_id INT PRIMARY KEY,
-    reserva_id INT NOT NULL UNIQUE,
+    id_servicio INT NOT NULL,
+    id_reserva INT PRIMARY KEY,
     numero_plazas INT NOT NULL CHECK (numero_plazas > 0),
     precio_unit DECIMAL(10,2) NOT NULL CHECK (precio_unit >= 0),
     precio_total DECIMAL(10,2) NOT NULL CHECK (precio_total >= 0),
 
     CONSTRAINT fk_parking_servicio
-        FOREIGN KEY (servicio_id)
+        FOREIGN KEY (id_servicio)
         REFERENCES servicios(id_servicio),
 
     CONSTRAINT fk_parking_reserva
-        FOREIGN KEY (reserva_id)
+        FOREIGN KEY (id_reserva)
         REFERENCES reservas(id_reserva)
 );
 
 CREATE TABLE IF NOT EXISTS servicio_comida (
-    servicio_id INT PRIMARY KEY,
-    reserva_id INT NOT NULL UNIQUE,
+    id_servicio INT NOT NULL,
+    id_reserva INT PRIMARY KEY,
     tipo_comida VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
 
     CONSTRAINT fk_comida_servicio
-        FOREIGN KEY (servicio_id)
+        FOREIGN KEY (id_servicio)
         REFERENCES servicios(id_servicio),
 
     CONSTRAINT fk_comida_reserva
-        FOREIGN KEY (reserva_id)
+        FOREIGN KEY (id_reserva)
         REFERENCES reservas(id_reserva)
 );
 
 CREATE TABLE IF NOT EXISTS servicio_spa (
-    servicio_id INT PRIMARY KEY,
-    reserva_id INT NOT NULL UNIQUE,
+	id_ticket_spa INT AUTO_INCREMENT PRIMARY KEY,
+    id_servicio INT NOT NULL,
+    id_reserva INT NOT NULL,
     tipo_tratamiento VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
 
     CONSTRAINT fk_spa_servicio
-        FOREIGN KEY (servicio_id)
+        FOREIGN KEY (id_servicio)
         REFERENCES servicios(id_servicio),
 
     CONSTRAINT fk_spa_reserva
-        FOREIGN KEY (reserva_id)
+        FOREIGN KEY (id_reserva)
         REFERENCES reservas(id_reserva)
 );
 
