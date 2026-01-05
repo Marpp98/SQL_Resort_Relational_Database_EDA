@@ -4,6 +4,7 @@ Este proyecto se centra en el diseño y la implementación de una base de datos 
 
 
 ## 📂 Estructura del Repositorio
+```
 /
 ├── data/                       # Datos originales y transformados
 │
@@ -16,11 +17,10 @@ Este proyecto se centra en el diseño y la implementación de una base de datos 
 ├── .gitignore                  # Archivo que indica que elementos debe ignorar Git
 │
 └── README.md                   # Documentación principal del repositorio 
-
+```
 
 ## 📊 Diagrama de la Base de Datos (EER)
-![Diagrama del Hotel](./tu_imagen.png) 
-*(Asegúrate de que la ruta de la imagen sea correcta)*
+![Diagrama del Hotel](./modelo_esquema.png)
 
 
 ## 🚀 Funcionalidades Principales
