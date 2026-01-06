@@ -2,6 +2,16 @@
 			Proyecto SQL: Resort Hotelero
  =================================================           
 - Este archivo contiene la insercción de datos en sus tablas correspondientes.
+- Excepto aquellas que se han insertado de manera manual el resto se trató de cargar por table Wizard.alter
+- Este método fue cambiado por dos motivos:
+	1. En las instrucciones del trabajo se pedía que el código fuera ejecutable desde 0.
+    2. Al tener demasiados registros se demoraba demasiado el tiempo.
+- En las tablas Servicios y Canales solo es necesario poner el tipo de servio o canal ya que su id es automático.
+
+- NOTA: para poder usar LOAD DATA LOCAL INFILE fue necesario hacer unas comprobaciones previas.
+	1. Añadir OPT_LOCAL_INFILE=1 a la configuración.
+	2. Establecer local_infile = 1
+    3. SHOW VARIABLES LIKE 'local_infile' para comprobar que verdaderamente está activado;
 */
 
 /* ===============================================
@@ -25,10 +35,16 @@ INSERT INTO canales (canal_distribucion) VALUES
 ('Otros');
 
 /* ===============================================
+			Activar LOAD DATA LOCAL INFILE
+ ================================================= */ 
+SET GLOBAL local_infile = 1;
+SHOW VARIABLES LIKE 'local_infile';
+
+
+/* ===============================================
 			Tabla Clientes
  ================================================= */ 
  
-SET GLOBAL local_infile = 1;
 LOAD DATA LOCAL INFILE 'C:/Users/maria/Desktop/Master_data_science/SQL_Resort_Relational_Database_EDA/data/clientes_finales.csv'
 INTO TABLE clientes
 CHARACTER SET ascii
@@ -87,6 +103,10 @@ LINES TERMINATED BY '\r\n'
 (id_servicio, id_reserva, tipo_tratamiento, precio)
 SET id_ticket_spa = NULL;
 
+/* ==================================
+			Comprobaciones
+================================== */
+
 select * from habitaciones;
 select * from canales;
 select * from servicios;
@@ -97,16 +117,20 @@ select * from servicio_comida;
 select * from servicio_spa;
 
 
--- 1. Desactivar temporalmente la revisión de llaves foráneas
-SET FOREIGN_KEY_CHECKS = 0;
 
--- 2. Vaciar la tabla (ahora sí te dejará)
-TRUNCATE TABLE servicio_comida;
+/* ====================================================================================
+En caso de querer vaciar una tabla, pero no borrarla habría que usar el siguiente código:
 
--- 3. Volver a activar la seguridad (IMPORTANTE)
-SET FOREIGN_KEY_CHECKS = 1;
+	-- 1. Desactivar temporalmente la revisión de llaves foráneas
+		SET FOREIGN_KEY_CHECKS = 0;
 
-SET GLOBAL local_infile = 1;
-SHOW VARIABLES LIKE 'local_infile';
+	-- 2. Vaciar la tabla
+		TRUNCATE TABLE servicio_comida;
+
+	-- 3. Volver a activar la seguridad (PASO CLAVE)
+		SET FOREIGN_KEY_CHECKS = 1;
+*/
+
+
 
 

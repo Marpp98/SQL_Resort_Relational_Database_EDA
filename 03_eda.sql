@@ -2,6 +2,8 @@
 			Proyecto SQL: Resort Hotelero
  =================================================           
 - Este archivo contiene la creación de querys.
+- El archivo consta de 24 querys que responden a las preguntas que se muestran previamente al resultado. 
+Algunos de ellos contienen las respuestas para futuras comprobaciones
 */
 
 /*===============================================
@@ -42,18 +44,18 @@ WHERE
 	estado_reserva = 'Check-Out';
     
  /*===============================================
-	3. ¿Cuatas nacionalidades diferentes han acudido a nuestro hotel?
+	3. ¿Cuatas nacionalidades diferentes hay en nuestra base de clientes?
  =================================================*/
  -- Hay 135 nacionalidades diferentes.
  
- SELECT 
-    COUNT(DISTINCT pais)
+SELECT 
+    COUNT(DISTINCT pais) AS numero_paises
 FROM
     clientes;
 
  /*===============================================
 	4. En nuestra base de clientes, ¿cuál es la nacionalidad de la mayoría de nuestros clientes?
-    - Obtén los 10 primeros. Si coinciden ordénalos por ordena alfabético.
+    - Obtén los 10 primeros. Si coinciden ordénalos por orden alfabético.
  =================================================*/ 
  -- Portugal, Angola, Grecia, Argentina y Australia.
 SELECT 
@@ -84,7 +86,7 @@ ORDER BY contrataciones DESC;
 	6. Qué servicio de spa es el más contratado.
  =================================================*/ 
  -- El servicio más contratado es balneario.
- SELECT 
+SELECT 
     tipo_tratamiento, 
     COUNT(*) AS contrataciones
 FROM
@@ -140,6 +142,7 @@ SELECT
     MAX(checkout) AS Final
 FROM
 	reservas;
+    
  /*===============================================
 	10. ¿Qué meses se han alquilado más de 500 plazas de garaje?
  =================================================*/    
@@ -287,7 +290,7 @@ ORDER BY
     total_clientes DESC;
  
   /*===============================================
-	18. Indica cuantas reservas ha habido en cada temporada. Puedes usar las estaciones del años como guía.
+	18. Indica cuantas reservas ha habido en cada temporada. Puedes usar las estaciones del año como guía.
  =================================================*/
 SELECT 
     CASE 
@@ -407,7 +410,9 @@ SELECT
     id_cliente,
     adultos,
     ninos,
+    estado_reserva,
     dias_estancia,
+
     -- 1. Precio de la habitación (obtenido mediante el JOIN)
     tarifa AS precio_habitacion,
     
@@ -441,8 +446,27 @@ FROM
 	vista_facturacion_reservas;
 
 
+ /*===============================================
+	23. Usando funciones ventana, crea un listado donde se vea el gasto acumulado de cada cliente y el puesto que le corresponde en un ranking de gasto.
+ =================================================*/ 
+-- RANK() OVER(...) compara el total acumulado contra los totales de los demas y le asigna un valor.
+-- WHERE estado_reserva = 'Check-out'  porque solo queremos los ingresos confirmados.
+
+-- El cliente 39 es nuestro cliente más rentable ya que su gasto en aproximadamente 1 año es de 33640. 
+-- Se observan que hay varios clientes que superan los 30000€, por lo que se valora crear a futuro una nueva clasificación en cuanto al gasto, en vez de las visitas. 
+
+SELECT 
+    id_cliente,
+    SUM(factura_total) AS gasto_real_ingresado,
+    RANK() OVER(ORDER BY SUM(factura_total) DESC) AS posicion_ranking
+FROM vista_facturacion_reservas
+WHERE estado_reserva = 'Check-out'
+GROUP BY id_cliente
+ORDER BY posicion_ranking;
+
+
 /*=============================================================================
-    23. Función para calcular el pago pendiente final
+    24. Función para calcular el pago pendiente final
  =============================================================================== 
  -- OBJETIVO: Calcular la cantidad exacta que el cliente debe abonar al salir.
  -- PASOS:

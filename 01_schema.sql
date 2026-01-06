@@ -14,7 +14,10 @@ USE resort_hotelero;
 
 /*============================================
 		Eliminación de tablas
-============================================*/
+============================================
+-- 1. Se desactiva la validación de las claves foráneas para poder ejecutar los borrados de tabla sin que aparezca un error de dependencia.
+-- 2. Tras haberlas borrado, se activa de nuevo su validación.*/
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS servicio_spa;
@@ -30,8 +33,19 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 
 /*============================================
-		Creación de tablas
+		CREACIÓN DE TABLAS
 ============================================*/
+
+/*============================================
+	Clientes:
+		- Se establece el id_cliente como clave primaria con AUTO_INCREMENT para garantizar la unicidad de cada cliente.
+        - Nombre y apellidos no pueden ser nulos ya que son datos obligatorios para identificar al cliente.
+        - Email debe ser un valor único ya que se considera un identificador de contacto único para cada cliente.
+        - Teléfono no se define como valor único ya que ya que los números pueden ser reasignados 
+		por las compañías telefónicas a distintos usuarios a lo largo del tiempo.
+        - Pais es opcional porque no es un dato clave para el funcionamiento del sistema.
+============================================*/
+
 
 CREATE TABLE IF NOT EXISTS clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,16 +56,36 @@ CREATE TABLE IF NOT EXISTS clientes (
     pais VARCHAR(50)
 );
 
+/*============================================
+Habitaciones:
+		- Se establece el id_habitación como clave primaria. En este caso no se establece el autoincremento ya que 
+        los hoteles tienen numeraciones propias en las habitaciones.
+        - Tipo no puede ser nulo ya que son datos obligatorios para identificar la habitación.
+        - Tarifa puede ser un precio con 2 decimales como máximo. el valor no puede ser menor que 0 ni nulo.
+============================================*/
+
 CREATE TABLE IF NOT EXISTS habitaciones (
     id_habitacion INT PRIMARY KEY,
     tipo VARCHAR(50) NOT NULL,
     tarifa DECIMAL(10,2) NOT NULL CHECK (tarifa >= 0)
 );
 
+/*============================================
+Canales:
+		- Se establece el id_canal como clave primaria con incremento para garantizar la unicidad de cada canal.
+        - Canal de distribución se establce como campo único que no debe ser nulo.
+============================================*/
+
 CREATE TABLE IF NOT EXISTS canales (
     id_canal INT AUTO_INCREMENT PRIMARY KEY,
     canal_distribucion VARCHAR(50) NOT NULL UNIQUE
 );
+
+/*============================================
+Servicios:
+		- Se establece el id_servicio como clave primaria con incremento para garantizar la unicidad de cada servicio.
+        - Tipo de distribución se establce como campo único que no debe ser nulo.
+============================================*/
 
 CREATE TABLE IF NOT EXISTS servicios (
     id_servicio INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,8 +93,21 @@ CREATE TABLE IF NOT EXISTS servicios (
 );
 
 /*============================================
-		Creación de tabla base
-============================================*/
+	Creación de tabla base: Reservas
+============================================
+	- Esta tabla representa el hecho transaccional principal del sistema. Cada fila representa una reserva.
+	- Se establece id_reserva como clave primaria para identificar cada reserva como unica.
+	- id_cliente, id_habitacion e id_canal son campos que no pueden ser nulos ya que servirán para relacionarse con otras tablas.
+	- estado_reserva no puede ser nulo para asegurar la trazabilidad del estado.
+	- adultos, bebes y niños indican la cantidad de personas de cada tipo asociado a cada reserva. No pueden ser menos a 0.alter
+	- deposito es la cantidad que un cliente deja cuando hace la reserva y por tanto debe ser 0 o mayor.
+	- checkin y checkout representa las fechas de entrada y salida en el hotel, por ello no pueden ser nulos.
+
+	- Claves foráneas:
+		- fk_reserva_cliente: garantiza la integridad referencial con la tabla clientes.
+		- fk_reserva_habitacion: asegura que la habitación asignada existe en el sistema.
+		- fk_reserva_canal: referencia el canal de distribución utilizado.
+*/
 
 CREATE TABLE IF NOT EXISTS reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,6 +138,17 @@ CREATE TABLE IF NOT EXISTS reservas (
 /*============================================
 		Creación de servicios(subtipos)
 ============================================*/
+
+/*============================================
+	servicio_parking: 
+		- Almacena la contratación del servicio de parking asociada a una reserva concreta. Es una relación uno a uno respecto a la tabla reservas.
+		- id_reserva se establece como como clave primaria, ya que una reserva puede contratar como máximo un servicio de parking.
+		- Número de plazas y precios incluyen restricciones CHECK para garantizar valores coherentes.
+		- Claves foráneas:
+			- fk_parking_servicio: asegurar su relacion con la tabla servicios.
+			- fk_parking_reserva : asegurar la integridad con la tabla reservas.
+============================================*/
+
 CREATE TABLE IF NOT EXISTS servicio_parking (
     id_servicio INT NOT NULL,
     id_reserva INT PRIMARY KEY,
@@ -107,6 +165,17 @@ CREATE TABLE IF NOT EXISTS servicio_parking (
         REFERENCES reservas(id_reserva)
 );
 
+/*============================================
+	servicio_comida: 
+		- Almacena la contratación del servicio de comida asociada a una reserva concreta. Es una relación uno a uno respecto a la tabla reservas.
+		- id_reserva se establece como como clave primaria, ya que una reserva puede contratar como máximo un servicio de comida.
+		- Tipo de comida hace referencia al régimen alimentario que no puede ser nulo
+		- Precio incluye restricciones CHECK para garantizar valores coherentes.
+		- Claves foráneas:
+			- fk_comida_servicio: asegurar su relacion con la tabla servicios.
+			- fk_comida_reserva : asegurar la integridad con la tabla reservas.
+============================================*/
+
 CREATE TABLE IF NOT EXISTS servicio_comida (
     id_servicio INT NOT NULL,
     id_reserva INT PRIMARY KEY,
@@ -121,6 +190,21 @@ CREATE TABLE IF NOT EXISTS servicio_comida (
         FOREIGN KEY (id_reserva)
         REFERENCES reservas(id_reserva)
 );
+
+/*============================================
+	servicio_spa: 
+		- Almacena los tratamientos de spa contratados durante una reserva. Es una relación uno a muchos respecto a la tabla reservas.
+		- id_ticket_spa: se define como clave primaria autoincremental, al tratarse de una entidad dependiente que requiere un identificador 
+        propio para cada tratamiento contratado.
+		- id_servicio e id_reserva se establecen como valores no nulos ya que cada tratamiento debe estar asociado obligatoriamente a un servicio 
+        del catálogo y a una reserva existente.
+		- Tipo de tratamiento hace referencia al tratamiento contratado que no puede ser nulo.
+		- Precio incluye una restricción CHECK para garantizar valores no negativos.
+		- Claves foráneas:
+			- fk_spa_servicio: asegurar su relacion con la tabla servicios.
+			- fk_spa_reserva : asegurar la integridad con la tabla reservas.
+============================================*/
+
 
 CREATE TABLE IF NOT EXISTS servicio_spa (
 	id_ticket_spa INT AUTO_INCREMENT PRIMARY KEY,
