@@ -2,7 +2,7 @@
 			Proyecto SQL: Resort Hotelero
  =================================================           
 - Este archivo contiene la creación de querys.
-- El archivo consta de 24 querys que responden a las preguntas que se muestran previamente al resultado. 
+- El archivo consta de 25 querys que responden a las preguntas que se muestran previamente al resultado. 
 Algunos de ellos contienen las respuestas para futuras comprobaciones
 */
 
@@ -19,7 +19,7 @@ FROM
  /*===============================================
 	2. ¿Cuantas reservas han sido canceladas?
  =================================================*/ 
- -- Han cancelado 16959 reservas.
+ -- Han cancelado 16959 reservas, lo que se traduce en un 34% de cancelaciones.
  
 SELECT 
     COUNT(*) AS total_canceladas
@@ -32,7 +32,7 @@ WHERE
  /*===============================================
 	3. ¿Cuantas adultos han acudido a nuestro hotel? ¿Y niños o bebés?
  =================================================*/ 
- -- Han acudido 56462 adultos, 2428 ninos y 334 bebes.
+ -- Han acudido 56462 adultos, 2428 niños y 334 bebes.
  
 SELECT 
     SUM(adultos) AS total_adultos,
@@ -464,9 +464,28 @@ WHERE estado_reserva = 'Check-out'
 GROUP BY id_cliente
 ORDER BY posicion_ranking;
 
+/*=============================================================================
+    24. Crea una tabla que resuma lo que se ingresa por cada servicio.
+ =============================================================================== 
+ - Este análisis revela una fuerte dependencia sel servicio de Restaurante ya que aproximadamente triplica los ingresos de parking y spa juntos.
+ - Esto indica que este servicio es un pilar fundamental en la rentabilidad del hotel.
+ - El servicio de parking genera un margen de beneficio neto muy altos ya que los costes de mantenimiento son muy bajos respecto a los otros dos. Se podría sugerir
+ el aumento de la tarifa en temporada alta.
+ - El sevicio de spa presenta el valor más bajo de los tres. Además es el que suele tener los costes más altos por lo que se sugiere lanzar promociones cruzadas como vales de descuento.
+ */
+SELECT 
+    s.id_servicio,
+    s.tipo_servicio,
+    CASE 
+        WHEN s.tipo_servicio = 'Restaurante' THEN ROUND((SELECT SUM(coste_comida * dias_estancia) FROM vista_facturacion_reservas WHERE estado_reserva = 'Check-out'),2)
+        WHEN s.tipo_servicio = 'Parking' THEN ROUND((SELECT SUM(coste_parking * dias_estancia) FROM vista_facturacion_reservas WHERE estado_reserva = 'Check-out'),2)
+        WHEN s.tipo_servicio = 'Spa' THEN ROUND((SELECT SUM(coste_spa) FROM vista_facturacion_reservas WHERE estado_reserva = 'Check-out'),2)
+        ELSE 0
+    END AS ingresos_totales
+FROM servicios s;
 
 /*=============================================================================
-    24. Función para calcular el pago pendiente final
+    25. Función para calcular el pago pendiente final
  =============================================================================== 
  -- OBJETIVO: Calcular la cantidad exacta que el cliente debe abonar al salir.
  -- PASOS:
