@@ -68,7 +68,7 @@ FROM
 	2. ¿Cuantas reservas han sido canceladas?
  =================================================*/ 
  -- Han cancelado 16959 reservas, lo que se traduce en un 34,5% de cancelaciones.
- -- Para la gestión hotelera, es importante saber la cantidad de cancelaciones que se tiene respecto al total ya que el coste de oportunidad de no alquilar esas habitaciones
+ -- Para la gestión hotelera, es importante saber la cantidad de cancelaciones que se tiene respecto al total debido al coste de oportunidad de no alquilar esas habitaciones
  -- En este caso, el valor obtenido es muy alto. Sería recomendable mirar (si tenemos el dato) cuándo se hicieron esas cancelaciones.
 
 SELECT 
@@ -116,7 +116,7 @@ WHERE
     
 /*===============================================================================================================
    - Las siguientes preguntas están relacionadas con la nacionalidad de los clientes.
-   - Este dato es importante ya que afecta a todos los departamento, por ejemplo para adaptar la oferta gastronómica 
+   - Estos datos son importantes ya que afecta a todos los departamento, por ejemplo para adaptar la oferta gastronómica 
    o para lanzar campañas de marketing en mercados que están en ascenso.
    */
     
@@ -214,7 +214,6 @@ LIMIT 1;
 -- Max = 60
 -- Min = 0
 
-
 -- Estos daos nos indican que la mayoría de clientes son de corta estancia. Lo que implica una mayor rotación y un mayor gasto, por ejemplo, en costes de limpieza.
 -- Existe otro segmento de clientes que usan la habitación por horas (0 días), son clientes muy rentables porque permiten alquilar la misma habitación 2 veces en 24 horas,
 -- pero no son nuestro cliente objetivo.
@@ -233,6 +232,7 @@ WHERE estado_reserva = 'Check-Out';
 	11. ¿Qué fechas abarca nuestra Base de Datos?
  =================================================*/
  -- 1 julio 2015 al 19 julio 2016
+ -- Se trata de una query necesaria para saber el rango de fechas que abarca la base de datos.
  
 SELECT 
 	MIN(checkin) AS Inicio,
@@ -242,7 +242,9 @@ FROM
     
  /*===============================================
 	12. ¿Qué meses se han alquilado más de 500 plazas de garaje?
- =================================================*/    
+ =================================================*/  
+ -- Query necesaria para conocer picos altos de demanda de plazas de garaje.
+ 
 SELECT 
     YEAR(r.checkin) AS anio,
     MONTHNAME(r.checkin) AS mes,
@@ -351,7 +353,7 @@ LIMIT 10;
  /*===============================================
 	18. Clasifica a los clientes en plata, oro y diamante según la cantidad de veces que hayan visitado el hotel. 
  =================================================*/
- -- Una clasificación por categorías permite al hotel crear promociones específicas y aumentar la fidelidad de los clientes.
+ -- Una clasificación por categorías permite al hotel crear promociones específicas y crear acciones que aumenten la fidelidad de los clientes.
  
 SELECT 
     c.id_cliente,
