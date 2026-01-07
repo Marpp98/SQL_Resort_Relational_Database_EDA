@@ -10,7 +10,10 @@ Algunos de ellos contienen las respuestas para futuras comprobaciones
 - Antes de comenzar se van a realizar una serie de inserciones, actualizaciones y borrados de datos para entender como funciona.
 - En este caso usaremos la tabla clientes.
 ===============================================*/
-select * from clientes;
+SELECT 
+    *
+FROM
+    clientes;
 
 INSERT INTO clientes (nombre, apellidos, email, telefono, pais)
 VALUES ('Lucas', 'Perez', 'lucas.perez@gmail.com', '+34 674 583 961', 'ESP');
@@ -112,7 +115,7 @@ WHERE
 	estado_reserva = 'Check-Out';
     
 /*===============================================================================================================
-   - Las siguientes preguntas están relacionadas con la nacionalidad de los clientes.alter
+   - Las siguientes preguntas están relacionadas con la nacionalidad de los clientes.
    - Este dato es importante ya que afecta a todos los departamento, por ejemplo para adaptar la oferta gastronómica 
    o para lanzar campañas de marketing en mercados que están en ascenso.
    */
@@ -354,7 +357,7 @@ SELECT
     c.id_cliente,
     c.nombre,
     c.apellidos,
-    COUNT(r.id_reserva) AS numero_visitas,
+    COUNT(DISTINCT r.id_reserva) AS numero_visitas,
     CASE 
         WHEN COUNT(r.id_reserva) >= 30 THEN 'Diamante'
         WHEN COUNT(r.id_reserva) >= 20 THEN 'Oro'
@@ -431,6 +434,9 @@ ORDER BY
  /*===============================================
 	21. Usando CTEs, indica cuantos adultos, niños o bebes han acudido al hotel en cada mes
  =================================================*/ 
+-- Esta query nos permite planificar mejor los recursos y el personal ya que con ella podemos preveer en qué meses hay mas niños 
+-- para poder ofrecerles servicios de animación o entretenimiento.
+-- En este caso, agosto sería el mes donde más niños y bebes hay y por tanto habría que destinar má recursos a este sector.
 
 WITH estadisticas_mensuales AS (
     SELECT 
