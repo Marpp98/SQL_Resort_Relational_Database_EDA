@@ -182,6 +182,15 @@ FROM
 GROUP BY tipo_tratamiento
 ORDER BY contrataciones DESC;
  
+  /*===============================================
+	10. ¿Cuántas reservas no han contratado parking?
+ =================================================*/
+SELECT 
+    COUNT(DISTINCT r.id_reserva) AS reservas_sin_parking
+FROM
+    reservas r
+LEFT JOIN servicio_parking p ON r.id_reserva = p.id_reserva
+WHERE p.id_servicio IS NULL and r.estado_reserva = 'Check-out';
  
  /*===============================================
 	9. ¿Cuál es la media de plazas de parking contratadas?¿Y la moda?
