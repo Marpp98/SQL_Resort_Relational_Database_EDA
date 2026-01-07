@@ -2,7 +2,7 @@
 			Proyecto SQL: Resort Hotelero
  =================================================           
 - Este archivo contiene la creación de querys.
-- El archivo consta de 25 querys que responden a las preguntas que se muestran previamente al resultado. 
+- El archivo consta de 27 querys que responden a las preguntas que se muestran previamente al resultado. 
 Algunos de ellos contienen las respuestas para futuras comprobaciones
 */
 
