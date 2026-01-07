@@ -7,7 +7,7 @@ Algunos de ellos contienen las respuestas para futuras comprobaciones
 */
 
 /*===============================================
-- Antes de comenzar se vana a realizar una serie de inserciones, actualizaciones y borrados de datos para entender como funciona.
+- Antes de comenzar se van a realizar una serie de inserciones, actualizaciones y borrados de datos para entender como funciona.
 - En este caso usaremos la tabla clientes.
 ===============================================*/
 select * from clientes;
@@ -555,11 +555,16 @@ SELECT
 	*
 FROM 
 	vista_facturacion_reservas;
+    
+-- Uso de la vista para obtener la facturación total.
+SELECT ROUND(SUM(factura_total)) AS facturacion_total_historica
+FROM vista_facturacion_reservas;
 
 
  /*===============================================
 	23. Usando funciones ventana, crea un listado donde se vea el gasto acumulado de cada cliente y el puesto que le corresponde en un ranking de gasto.
  =================================================*/ 
+ 
 -- RANK() OVER(...) compara el total acumulado contra los totales de los demas y le asigna un valor.
 -- WHERE estado_reserva = 'Check-out'  porque solo queremos los ingresos confirmados.
 
@@ -576,6 +581,18 @@ FROM vista_facturacion_reservas
 WHERE estado_reserva = 'Check-out'
 GROUP BY id_cliente
 ORDER BY posicion_ranking;
+
+-- Como se ha detectado un grupo de clientes que gastan más de 30000€ nos interesa saber cuántos son y su total:
+SELECT 
+    COUNT(id_cliente) AS numero_de_vips, 
+    SUM(gasto_individual) AS facturacion_total_vips
+FROM (
+    SELECT id_cliente, SUM(factura_total) AS gasto_individual
+    FROM vista_facturacion_reservas
+    WHERE estado_reserva = 'Check-out'
+    GROUP BY id_cliente
+    HAVING gasto_individual > 30000
+) AS segmento_premium;
 
 /*=============================================================================
     24. Crea una tabla que resuma lo que se ingresa por cada servicio.
