@@ -7,9 +7,54 @@ Algunos de ellos contienen las respuestas para futuras comprobaciones
 */
 
 /*===============================================
+- Antes de comenzar se vana a realizar una serie de inserciones, actualizaciones y borrados de datos para entender como funciona.
+- En este caso usaremos la tabla clientes.
+===============================================*/
+select * from clientes;
+
+INSERT INTO clientes (nombre, apellidos, email, telefono, pais)
+VALUES ('Lucas', 'Perez', 'lucas.perez@gmail.com', '+34 674 583 961', 'ESP');
+
+SELECT 
+    *
+FROM
+    clientes
+ORDER BY id_cliente DESC;
+
+-- Observamos que Lucas Pérez ha sido creado con el id 1008.
+-- Supongamos que Lucas, se equivocó a la hora de poner su email:
+
+UPDATE clientes 
+SET email = 'lucas.perez@hotmail.com'
+WHERE id_cliente = 1008;
+
+-- Comprobamos el cambio:
+
+SELECT 
+    *
+FROM
+    clientes
+WHERE id_cliente = '1008';
+
+-- Ahora vemos como Lucas ha cambiado su email de gmail a hotmail.
+-- Por último, imaginemos que tenemos que borrar su registro.
+
+DELETE FROM clientes 
+WHERE id_cliente = 1008;
+
+-- Comprobamos que ya no existe:
+SELECT 
+    *
+FROM
+    clientes
+WHERE id_cliente = '1008';
+
+
+/*===============================================
 	1. Cuantas reservas se han realizado
  =================================================*/ 
  -- Se han realizado 49157 reservas.
+ -- Esta consulta es útil para obtener totales de reservas independientemente de su estado.
 
 SELECT 
     COUNT(*)
@@ -19,20 +64,24 @@ FROM
  /*===============================================
 	2. ¿Cuantas reservas han sido canceladas?
  =================================================*/ 
- -- Han cancelado 16959 reservas, lo que se traduce en un 34% de cancelaciones.
- 
+ -- Han cancelado 16959 reservas, lo que se traduce en un 34,5% de cancelaciones.
+ -- Para la gestión hotelera, es importante saber la cantidad de cancelaciones que se tiene respecto al total ya que el coste de oportunidad de no alquilar esas habitaciones
+ -- En este caso, el valor obtenido es muy alto. Sería recomendable mirar (si tenemos el dato) cuándo se hicieron esas cancelaciones.
+
 SELECT 
-    COUNT(*) AS total_canceladas
-FROM
-    reservas
-WHERE
-    estado_reserva = 'Canceled';
- 
+    COUNT(*) AS total_reservas,
+    SUM(CASE WHEN estado_reserva = 'Canceled' THEN 1 ELSE 0 END) AS total_canceladas,
+    ROUND(
+        (SUM(CASE WHEN estado_reserva = 'Canceled' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 
+        2
+    ) AS porcentaje_cancelacion
+FROM reservas;
  
  /*===============================================
 	3. ¿Cuantas adultos han acudido a nuestro hotel? ¿Y niños o bebés?
  =================================================*/ 
  -- Han acudido 56462 adultos, 2428 niños y 334 bebes.
+ -- Esto indica que nuestro cliente principal son adultos y por tanto se pueden crear packs o actividades más orientadas a ellos.
  
 SELECT 
     SUM(adultos) AS total_adultos,
@@ -42,6 +91,13 @@ FROM
     reservas
 WHERE
 	estado_reserva = 'Check-Out';
+    
+/*===============================================================================================================
+   - Las siguientes preguntas están relacionadas con la nacionalidad de los clientes.alter
+   - Este dato es importante ya que afecta a todos los departamento, por ejemplo para adaptar la oferta gastronómica 
+   o para lanzar campañas de marketing en mercados que están en ascenso.
+   */
+    
     
  /*===============================================
 	3. ¿Cuatas nacionalidades diferentes hay en nuestra base de clientes?
@@ -58,6 +114,10 @@ FROM
     - Obtén los 10 primeros. Si coinciden ordénalos por orden alfabético.
  =================================================*/ 
  -- Portugal, Angola, Grecia, Argentina y Australia.
+ -- En este caso, por ejemplo, es curioro como la mayoría de clientes son Prtugueses pero que después hay angoleños. 
+ -- Esto podría traducirse en la existencia de una conexión entre el mercado principal (Portugal) y mercados secundarios como Angola (país de lengua portuguesa).
+ -- Por tanto, sería importante que el personal del hotel hablase portugués para atender a nuestros clientes principales.alter
+ 
 SELECT 
     pais, 
     COUNT(DISTINCT id_cliente) AS total_clientes_unicos
@@ -72,7 +132,10 @@ LIMIT 5;
  /*===============================================
 	5. Qué régimen de comida es el más contratado.
  =================================================*/ 
- -- El régimen más contratado es BB(bed & breakfast)
+ -- El régimen más contratado es BB(bed & breakfast).
+ -- Esto podría deberse a que los clientes prefieren salir del hotel y hacer excursiones o hacer turismo en vez de quedarse a descansar o hacer actividades del hotel.
+ -- Se podría proponer crear nuevas actividades u ofrecer excursiones propias para retener más clientes y que opten por otros tipos de régimen.
+ 
 SELECT 
     tipo_comida, 
     COUNT(*) AS contrataciones
@@ -86,6 +149,9 @@ ORDER BY contrataciones DESC;
 	6. Qué servicio de spa es el más contratado.
  =================================================*/ 
  -- El servicio más contratado es balneario.
+ -- En este caso todos los tratamientos se reparten de manera uniforme debido a la política de precios que impide la canibalización entre los servicios ofrecidos.
+ -- Se podrían crear promociones cuando el cliente reserva la habitación para aumentar las constrataciones de estos servicios.
+ 
 SELECT 
     tipo_tratamiento, 
     COUNT(*) AS contrataciones
@@ -117,12 +183,21 @@ ORDER BY
 	frecuencia DESC
 LIMIT 1;
 
+-- Como ambos datos convergen en 1, el hotel puede preveer su inventario de parking simplificando su gestión.
+
  /*===============================================
 	8. ¿Cuál es la estancia media, la máxima y la mínima?
  =================================================*/ 
 -- Media = 3
 -- Max = 60
 -- Min = 0
+
+
+-- Estos daos nos indican que la mayoría de clientes son de corta estancia. Lo que implica una mayor rotación y un mayor gasto, por ejemplo, en costes de limpieza.
+-- Existe otro segmento de clientes que usan la habitación por horas (0 días), son clientes muy rentables porque permiten alquilar la misma habitación 2 veces en 24 horas,
+-- pero no son nuestro cliente objetivo.
+-- Por último, el segmento de estancias largas representa a clientes que nos proporcionan alta rentabilidad debido a su bajo coste operativo.
+-- Por ello, el hotel debería tratar de centrarse en clientes que amplien su estancia para obtener una mayor rentabilidad.
 
 SELECT 
 	ROUND(AVG(DATEDIFF(checkout, checkin))) AS estancia_media,
@@ -165,11 +240,15 @@ ORDER BY
 	11. ¿Qué perfil de cliente nos visita más? (Individual,parejas o familias)
  =================================================*/
  -- Parejas
+ -- Saber que la mayoría de clientes son parejas nos permite orientar nuestras campañas de marketing a este tipo de clientes, por ejemplo un pack DUO con acceso a spa.
  
 SELECT 
-    IF((adultos + ninos + bebes) = 1, 'Individual', 
-        IF((adultos + ninos + bebes) = 2, 'Pareja', 'Familia')
-    ) AS tipo_reserva,
+    CASE 
+        WHEN adultos = 1 AND ninos = 0 AND bebes = 0 THEN 'Individual'
+        WHEN adultos = 2 AND ninos = 0 AND bebes = 0 THEN 'Pareja'
+        WHEN adultos >= 1 AND (ninos > 0 OR bebes > 0) THEN 'Familia'
+        ELSE 'Grupo/Otros' 
+    END AS tipo_reserva,
     COUNT(DISTINCT id_reserva) AS reservas
 FROM reservas
 WHERE estado_reserva = 'Check-Out'
@@ -180,11 +259,17 @@ ORDER BY reservas DESC;
 	12. ¿Qué perfil de cliente nos cancela más? (Individual,parejas o familias)
  =================================================*/
  -- Parejas
+ -- La alta volatilidad de este segmento nos perjudica ya que no se traslada solo a una perdida de habitación 
+ -- sino también en una pérdida en los servicios de spa que podían haber contratado.
+ -- Para evitarlo, el hotel debería crear políticas de cancelación como un adelanto no reembolsable hasta 24 horas antes.
  
 SELECT 
-    IF((adultos + ninos + bebes) = 1, 'Individual', 
-        IF((adultos + ninos + bebes) = 2, 'Pareja', 'Familia')
-    ) AS tipo_reserva,
+    CASE 
+        WHEN adultos = 1 AND ninos = 0 AND bebes = 0 THEN 'Individual'
+        WHEN adultos = 2 AND ninos = 0 AND bebes = 0 THEN 'Pareja'
+        WHEN adultos >= 1 AND (ninos > 0 OR bebes > 0) THEN 'Familia'
+        ELSE 'Grupo/Otros' 
+    END AS tipo_reserva,
     COUNT(DISTINCT id_reserva) AS reservas
 FROM reservas
 WHERE estado_reserva = 'Canceled'
@@ -195,6 +280,8 @@ ORDER BY reservas DESC;
 	13. ¿Qué tipo de habitaciones se han contratado más?
  =================================================*/ 
 -- La habitación más contratada es la doble interior.
+-- Esto sigue la lógica de que el mayor segmento son parejas. En estos casos podría interesar que alquilasen la doble exterior debido a su mayor precio.
+-- Para ello, se podría lanzar un 'pack premiun' donde se ofrezca este tipo de habitacion más un desayuno en la habitacion o un detalle de bienvenida.
 SELECT 
 	h.tipo, 
 	COUNT(r.id_reserva) AS reservas
@@ -208,6 +295,8 @@ ORDER BY reservas DESC;
  /*===============================================
 	14. ¿Quiénes son los clientes que más han visitado el hotel? Saca el TOP 10.
  =================================================*/ 
+ -- Saber los clientes que más han visitado el hotel nos permite saber su fidelidad y por tanto crear promociones o ventajas para seguir manteniéndolos.
+ 
 SELECT 
     c.*,
     COUNT(DISTINCT r.id_reserva) AS Reservas
@@ -222,6 +311,9 @@ LIMIT 10;
  /*===============================================
 	15. ¿Y los que más nos han cancelado? Saca el TOP 10.
  =================================================*/ 
+ -- Saber qué clientes cancelan más es importante ya que son un riesgo.
+ -- El hotel podría establecer un sistema de alertas para que esos clientes que cancelan tanto tengan que abonar el 100% de la estancia con antelación.
+ 
 SELECT 
     c.*,
     COUNT(DISTINCT r.id_reserva) AS Reservas
@@ -236,8 +328,9 @@ LIMIT 10;
 
  /*===============================================
 	16. Clasifica a los clientes en plata, oro y diamante según la cantidad de veces que hayan visitado el hotel. 
-		**Uso de CASE/WHEN
  =================================================*/
+ -- Una clasificación por categorías permite al hotel crear promociones específicas y aumentar la fidelidad de los clientes.
+ 
 SELECT 
     c.id_cliente,
     c.nombre,
@@ -264,6 +357,9 @@ ORDER BY
 	17. Cuántos clientes hay de cada categoría de  clientes?
 		**Uso de desubconsulta.
  =================================================*/
+ -- En este caso, nos interesaría que los clientes de la categoría Plata aumente ya que significaría la existencia de nuevos clientes que podrían fidelizarse.
+ -- Por otro lado, nos indica una alta tasa de fidelización, ya que la mayoría son clientes 'Oro'.
+ 
 SELECT 
     categoria_fidelidad, 
     COUNT(*) AS total_clientes
@@ -291,7 +387,11 @@ ORDER BY
  
   /*===============================================
 	18. Indica cuantas reservas ha habido en cada temporada. Puedes usar las estaciones del año como guía.
- =================================================*/
+ =================================================
+ -- Esta query nos permite preveer cuando se darán los picos de demanda, en este caso primavera.
+ -- Saber qué estacionalidad vamos a tener es importante para poder optimizar la gestión de personal o cuando realizar 
+	reformas ruidosas o de mantenimiento que pueden molestar a nuestros clientes.
+ */
 SELECT 
     CASE 
         WHEN MONTH(checkin) IN (12, 1, 2) THEN 'Invierno'
@@ -335,7 +435,14 @@ ORDER BY mes_num;
 
  /*===============================================
 	20. Crea una función que indica cuanto factura el spa en el mes indicado
- =================================================*/ 
+ ================================================= 
+ -- Saber la facturación del spa cada mes es un dato importante ya que nos permite obtener el dato rápidamente sin la necesidad de hacer joins cada vez que nos lo pidan.
+ -- También nos permite comparar rápidamente el mes de dos años diferentes o de dos meses consecutivos para ver la diferencia y así observar los cambios que se hayan producido
+	o detectar problemas como una menor facturación asociada a obras en el spa o a la baja de un masajista.*/
+    
+ -- En cuanto a la función, es necesario establecer el delimitador con anterioridad para que no confunda ; como fin de consulta.   
+ -- En este caso, a la hora de llamar a la función será necesario hacer referencia al mes y al año de consulta ambos como números.
+ 
 DELIMITER $$
 CREATE FUNCTION facturacion_spa_mes(mes_consulta INT, anio_consulta INT) 
 RETURNS DECIMAL(10,2)
@@ -361,6 +468,9 @@ SELECT facturacion_spa_mes(8, 2015) AS ingresos_spa_agosto;
  /*===============================================
 	21. Vista que informa sobre los ingresos del spa en cada mes según año
  =================================================*/
+ -- Tener una vista que nos muestre los ingresos por cada mes es muy útil ya que nos permite observar con facílidad como han ido variando a lo largo del tiempo.
+ -- Así obtendremos de un solo vistazo los meses de mayor ocupación y menor ocupación y podremos promocionar estos últimos para conseguir que aumenten nuestros ingresos.
+ 
 CREATE OR REPLACE VIEW ingresos_spa_mes AS
 SELECT 
 	YEAR(r.checkin) AS anio,
@@ -373,7 +483,7 @@ JOIN
 GROUP BY 
     anio, MONTH(r.checkin), mes
 ORDER BY 
-    anio DESC, MONTH(r.checkin) DESC;
+    anio, MONTH(r.checkin);
     
     
 -- Vemos los datos de la vista:
@@ -393,6 +503,7 @@ SELECT * FROM ingresos_spa_mes WHERE anio = 2015;
 	-- 3. Sumamos todos esos costes y multiplicamos por los dias en caso de ser necesario(habitaciones, parking y comida)
     
 -- NOTA: la CTE se crea porque es más eficiente en memoria, es más legible y permite reutilizar el código.
+-- Esta vista nos permite centralizar todos los datos y simplificar los cálculos necesarios para realizar un reporting de ingresos.
  */
  
 CREATE OR REPLACE VIEW vista_facturacion_reservas AS
@@ -453,7 +564,9 @@ FROM
 -- WHERE estado_reserva = 'Check-out'  porque solo queremos los ingresos confirmados.
 
 -- El cliente 39 es nuestro cliente más rentable ya que su gasto en aproximadamente 1 año es de 33640. 
--- Se observan que hay varios clientes que superan los 30000€, por lo que se valora crear a futuro una nueva clasificación en cuanto al gasto, en vez de las visitas. 
+-- Se observan que hay un segmento de clientes que superan los 30000€. 
+-- Por lo tanto, es recomendable cambiar el programa de fidelización de un modelo basado en 'volumen de visitas' a uno basado en 'valor de gasto real'.
+-- De este modo se priorizaran a los clientes que han generado un mayor ingreso al hotel.
 
 SELECT 
     id_cliente,
@@ -471,7 +584,8 @@ ORDER BY posicion_ranking;
  - Esto indica que este servicio es un pilar fundamental en la rentabilidad del hotel.
  - El servicio de parking genera un margen de beneficio neto muy altos ya que los costes de mantenimiento son muy bajos respecto a los otros dos. Se podría sugerir
  el aumento de la tarifa en temporada alta.
- - El sevicio de spa presenta el valor más bajo de los tres. Además es el que suele tener los costes más altos por lo que se sugiere lanzar promociones cruzadas como vales de descuento.
+ - El sevicio de spa presenta el valor más bajo de los tres. Además es el que suele tener los costes más altos por lo que se sugiere lanzar promociones cruzadas 
+ como vales de descuento.
  */
 SELECT 
     s.id_servicio,
