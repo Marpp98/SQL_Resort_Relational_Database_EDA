@@ -76,9 +76,28 @@ SELECT
         2
     ) AS porcentaje_cancelacion
 FROM reservas;
- 
+
+/*===============================================
+	3. ¿Cuantas reservas se hacen por cada canal? ¿Y cuántas cancelaciones?
+ =================================================
+ -- Gracias a esta query obtenemos la calidad de la demanda ya que por ejemplo, a través de las agencias es donde se obtiene la mayor cantidad de reservas sin embargo,
+ un 38,55% de las reservas totales de este tipo acaban en cancelaciones por lo que no es un canal muy eficiente.
+ -- Por otro lado, tenemos aquellas reservas que se hacen directamente en el hotel cuya tasa de cancelacion se corresponde a un 14,75% lo que es mucho más eficiente.
+ */
+SELECT 
+    c.canal_distribucion, 
+    COUNT(DISTINCT r.id_reserva) AS total_reservas_unicas,
+    COUNT(DISTINCT CASE WHEN r.estado_reserva = 'Check-Out' THEN r.id_reserva END) AS total_checkouts,
+    COUNT(DISTINCT CASE WHEN r.estado_reserva = 'Canceled' THEN r.id_reserva END) AS total_canceladas,
+    -- Cálculo del Ratio de Cancelación
+    ROUND((COUNT(DISTINCT CASE WHEN r.estado_reserva = 'Canceled' THEN r.id_reserva END) / COUNT(DISTINCT r.id_reserva)) * 100, 2) AS ratio_cancelacion_pct
+FROM reservas r
+JOIN canales c ON r.id_canal = c.id_canal
+GROUP BY c.canal_distribucion
+ORDER BY ratio_cancelacion_pct DESC;
+
  /*===============================================
-	3. ¿Cuantas adultos han acudido a nuestro hotel? ¿Y niños o bebés?
+	4. ¿Cuantas adultos han acudido a nuestro hotel? ¿Y niños o bebés?
  =================================================*/ 
  -- Han acudido 56462 adultos, 2428 niños y 334 bebes.
  -- Esto indica que nuestro cliente principal son adultos y por tanto se pueden crear packs o actividades más orientadas a ellos.
@@ -100,7 +119,7 @@ WHERE
     
     
  /*===============================================
-	3. ¿Cuatas nacionalidades diferentes hay en nuestra base de clientes?
+	5. ¿Cuatas nacionalidades diferentes hay en nuestra base de clientes?
  =================================================*/
  -- Hay 135 nacionalidades diferentes.
  
@@ -110,7 +129,7 @@ FROM
     clientes;
 
  /*===============================================
-	4. En nuestra base de clientes, ¿cuál es la nacionalidad de la mayoría de nuestros clientes?
+	6. En nuestra base de clientes, ¿cuál es la nacionalidad de la mayoría de nuestros clientes?
     - Obtén los 10 primeros. Si coinciden ordénalos por orden alfabético.
  =================================================*/ 
  -- Portugal, Angola, Grecia, Argentina y Australia.
@@ -130,7 +149,7 @@ ORDER BY
 LIMIT 5;
 
  /*===============================================
-	5. Qué régimen de comida es el más contratado.
+	7. Qué régimen de comida es el más contratado.
  =================================================*/ 
  -- El régimen más contratado es BB(bed & breakfast).
  -- Esto podría deberse a que los clientes prefieren salir del hotel y hacer excursiones o hacer turismo en vez de quedarse a descansar o hacer actividades del hotel.
@@ -146,7 +165,7 @@ ORDER BY contrataciones DESC;
  
  
  /*===============================================
-	6. Qué servicio de spa es el más contratado.
+	8. Qué servicio de spa es el más contratado.
  =================================================*/ 
  -- El servicio más contratado es balneario.
  -- En este caso todos los tratamientos se reparten de manera uniforme debido a la política de precios que impide la canibalización entre los servicios ofrecidos.
@@ -162,7 +181,7 @@ ORDER BY contrataciones DESC;
  
  
  /*===============================================
-	7. ¿Cuál es la media de plazas de parking contratadas?¿Y la moda?
+	9. ¿Cuál es la media de plazas de parking contratadas?¿Y la moda?
  =================================================*/ 
  -- Media = 1
 SELECT 
@@ -186,7 +205,7 @@ LIMIT 1;
 -- Como ambos datos convergen en 1, el hotel puede preveer su inventario de parking simplificando su gestión.
 
  /*===============================================
-	8. ¿Cuál es la estancia media, la máxima y la mínima?
+	10. ¿Cuál es la estancia media, la máxima y la mínima?
  =================================================*/ 
 -- Media = 3
 -- Max = 60
@@ -208,7 +227,7 @@ WHERE estado_reserva = 'Check-Out';
 
 
  /*===============================================
-	9. ¿Qué fechas abarca nuestra Base de Datos?
+	11. ¿Qué fechas abarca nuestra Base de Datos?
  =================================================*/
  -- 1 julio 2015 al 19 julio 2016
  
@@ -219,7 +238,7 @@ FROM
 	reservas;
     
  /*===============================================
-	10. ¿Qué meses se han alquilado más de 500 plazas de garaje?
+	12. ¿Qué meses se han alquilado más de 500 plazas de garaje?
  =================================================*/    
 SELECT 
     YEAR(r.checkin) AS anio,
@@ -237,7 +256,7 @@ ORDER BY
     anio DESC, MONTH(r.checkin) DESC;
     
  /*===============================================
-	11. ¿Qué perfil de cliente nos visita más? (Individual,parejas o familias)
+	13. ¿Qué perfil de cliente nos visita más? (Individual,parejas o familias)
  =================================================*/
  -- Parejas
  -- Saber que la mayoría de clientes son parejas nos permite orientar nuestras campañas de marketing a este tipo de clientes, por ejemplo un pack DUO con acceso a spa.
@@ -256,7 +275,7 @@ GROUP BY tipo_reserva
 ORDER BY reservas DESC;
 
  /*===============================================
-	12. ¿Qué perfil de cliente nos cancela más? (Individual,parejas o familias)
+	14. ¿Qué perfil de cliente nos cancela más? (Individual,parejas o familias)
  =================================================*/
  -- Parejas
  -- La alta volatilidad de este segmento nos perjudica ya que no se traslada solo a una perdida de habitación 
@@ -277,7 +296,7 @@ GROUP BY tipo_reserva
 ORDER BY reservas DESC;
 
  /*===============================================
-	13. ¿Qué tipo de habitaciones se han contratado más?
+	15. ¿Qué tipo de habitaciones se han contratado más?
  =================================================*/ 
 -- La habitación más contratada es la doble interior.
 -- Esto sigue la lógica de que el mayor segmento son parejas. En estos casos podría interesar que alquilasen la doble exterior debido a su mayor precio.
@@ -293,7 +312,7 @@ ORDER BY reservas DESC;
 
 
  /*===============================================
-	14. ¿Quiénes son los clientes que más han visitado el hotel? Saca el TOP 10.
+	16. ¿Quiénes son los clientes que más han visitado el hotel? Saca el TOP 10.
  =================================================*/ 
  -- Saber los clientes que más han visitado el hotel nos permite saber su fidelidad y por tanto crear promociones o ventajas para seguir manteniéndolos.
  
@@ -309,7 +328,7 @@ ORDER BY Reservas DESC, c.apellidos
 LIMIT 10;
 
  /*===============================================
-	15. ¿Y los que más nos han cancelado? Saca el TOP 10.
+	17. ¿Y los que más nos han cancelado? Saca el TOP 10.
  =================================================*/ 
  -- Saber qué clientes cancelan más es importante ya que son un riesgo.
  -- El hotel podría establecer un sistema de alertas para que esos clientes que cancelan tanto tengan que abonar el 100% de la estancia con antelación.
@@ -327,7 +346,7 @@ LIMIT 10;
 
 
  /*===============================================
-	16. Clasifica a los clientes en plata, oro y diamante según la cantidad de veces que hayan visitado el hotel. 
+	18. Clasifica a los clientes en plata, oro y diamante según la cantidad de veces que hayan visitado el hotel. 
  =================================================*/
  -- Una clasificación por categorías permite al hotel crear promociones específicas y aumentar la fidelidad de los clientes.
  
@@ -354,7 +373,7 @@ ORDER BY
     
     
  /*===============================================
-	17. Cuántos clientes hay de cada categoría de  clientes?
+	19. Cuántos clientes hay de cada categoría de  clientes?
 		**Uso de desubconsulta.
  =================================================*/
  -- En este caso, nos interesaría que los clientes de la categoría Plata aumente ya que significaría la existencia de nuevos clientes que podrían fidelizarse.
@@ -386,7 +405,7 @@ ORDER BY
     total_clientes DESC;
  
   /*===============================================
-	18. Indica cuantas reservas ha habido en cada temporada. Puedes usar las estaciones del año como guía.
+	20. Indica cuantas reservas ha habido en cada temporada. Puedes usar las estaciones del año como guía.
  =================================================
  -- Esta query nos permite preveer cuando se darán los picos de demanda, en este caso primavera.
  -- Saber qué estacionalidad vamos a tener es importante para poder optimizar la gestión de personal o cuando realizar 
@@ -410,7 +429,7 @@ ORDER BY
     total_reservas DESC;
 
  /*===============================================
-	19. Usando CTEs, indica cuantos adultos, niños o bebes han acudido al hotel en cada mes
+	21. Usando CTEs, indica cuantos adultos, niños o bebes han acudido al hotel en cada mes
  =================================================*/ 
 
 WITH estadisticas_mensuales AS (
@@ -434,7 +453,7 @@ GROUP BY mes_num, nombre_mes
 ORDER BY mes_num;
 
  /*===============================================
-	20. Crea una función que indica cuanto factura el spa en el mes indicado
+	22. Crea una función que indica cuanto factura el spa en el mes indicado
  ================================================= 
  -- Saber la facturación del spa cada mes es un dato importante ya que nos permite obtener el dato rápidamente sin la necesidad de hacer joins cada vez que nos lo pidan.
  -- También nos permite comparar rápidamente el mes de dos años diferentes o de dos meses consecutivos para ver la diferencia y así observar los cambios que se hayan producido
@@ -466,7 +485,7 @@ DELIMITER ;
 SELECT facturacion_spa_mes(8, 2015) AS ingresos_spa_agosto;
 
  /*===============================================
-	21. Vista que informa sobre los ingresos del spa en cada mes según año
+	23. Vista que informa sobre los ingresos del spa en cada mes según año
  =================================================*/
  -- Tener una vista que nos muestre los ingresos por cada mes es muy útil ya que nos permite observar con facílidad como han ido variando a lo largo del tiempo.
  -- Así obtendremos de un solo vistazo los meses de mayor ocupación y menor ocupación y podremos promocionar estos últimos para conseguir que aumenten nuestros ingresos.
@@ -493,7 +512,7 @@ SELECT * FROM ingresos_spa_mes;
 SELECT * FROM ingresos_spa_mes WHERE anio = 2015;
 
  /*===============================================
-	22. Vista que informa sobre el precio total para cada reserva
+	24. Vista que informa sobre el precio total para cada reserva
  ================================================= 
  -- Objetivo: obtener el el desglose de costes y el precio total final por reserva.
  -- Pasos:
@@ -562,7 +581,7 @@ FROM vista_facturacion_reservas;
 
 
  /*===============================================
-	23. Usando funciones ventana, crea un listado donde se vea el gasto acumulado de cada cliente y el puesto que le corresponde en un ranking de gasto.
+	25. Usando funciones ventana, crea un listado donde se vea el gasto acumulado de cada cliente y el puesto que le corresponde en un ranking de gasto.
  =================================================*/ 
  
 -- RANK() OVER(...) compara el total acumulado contra los totales de los demas y le asigna un valor.
@@ -582,7 +601,9 @@ WHERE estado_reserva = 'Check-out'
 GROUP BY id_cliente
 ORDER BY posicion_ranking;
 
+
 -- Como se ha detectado un grupo de clientes que gastan más de 30000€ nos interesa saber cuántos son y su total:
+
 SELECT 
     COUNT(id_cliente) AS numero_de_vips, 
     SUM(gasto_individual) AS facturacion_total_vips
@@ -595,7 +616,7 @@ FROM (
 ) AS segmento_premium;
 
 /*=============================================================================
-    24. Crea una tabla que resuma lo que se ingresa por cada servicio.
+    26. Crea una tabla que resuma lo que se ingresa por cada servicio.
  =============================================================================== 
  - Este análisis revela una fuerte dependencia sel servicio de Restaurante ya que aproximadamente triplica los ingresos de parking y spa juntos.
  - Esto indica que este servicio es un pilar fundamental en la rentabilidad del hotel.
@@ -616,7 +637,7 @@ SELECT
 FROM servicios s;
 
 /*=============================================================================
-    25. Función para calcular el pago pendiente final
+    27. Función para calcular el pago pendiente final
  =============================================================================== 
  -- OBJETIVO: Calcular la cantidad exacta que el cliente debe abonar al salir.
  -- PASOS:

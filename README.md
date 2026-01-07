@@ -45,6 +45,8 @@ Se han implementa soluciones avanzadas para la toma de decisiones estratégicas,
 - **Métrica de Valor de Cliente (CLV):** cálculo del gasto acumulado por usuario para identificar a los clientes de alta rentabilidad.
 
 **3. Gestión de Riesgos y Estacionalidad**
+- **Volatilidad de canales:** análisis del Ratio de Cancelación para identificar qué fuentes de reserva (Agencias, Web, Directo) presentan mayor riesgo operativo al comparar estados de Canceled frente a Check-Out.
+
 - **Monitorización de Cancelaciones:** identificación de patrones de cancelación por segmento y detección de clientes con alta recurrencia de cancelaciones.
 
 - **Análisis de Estacionalidad:** consultas para determinar los picos de demanda (Primavera), permitiendo una planificación eficiente de personal y mantenimiento.
