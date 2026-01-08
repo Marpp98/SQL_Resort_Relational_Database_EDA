@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS servicios (
 );
 
 /*============================================
-	Creación de tabla base: Reservas
+	Tabla principal o fact table: Reservas
 ============================================
 	- Esta tabla representa el hecho transaccional principal del sistema. Cada fila representa una reserva.
 	- Se establece id_reserva como clave primaria para identificar cada reserva como unica.
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS reservas (
 ============================================*/
 
 CREATE TABLE IF NOT EXISTS servicio_parking (
-    id_servicio INT NOT NULL,
+    id_servicio INT NOT NULL DEFAULT 1,
     id_reserva INT PRIMARY KEY,
     numero_plazas INT NOT NULL CHECK (numero_plazas > 0),
     precio_unit DECIMAL(10,2) NOT NULL CHECK (precio_unit >= 0),
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS servicio_parking (
 ============================================*/
 
 CREATE TABLE IF NOT EXISTS servicio_comida (
-    id_servicio INT NOT NULL,
+    id_servicio INT NOT NULL DEFAULT 2,
     id_reserva INT PRIMARY KEY,
     tipo_comida VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS servicio_comida (
 
 CREATE TABLE IF NOT EXISTS servicio_spa (
 	id_ticket_spa INT AUTO_INCREMENT PRIMARY KEY,
-    id_servicio INT NOT NULL,
+    id_servicio INT NOT NULL DEFAULT 3,
     id_reserva INT NOT NULL,
     tipo_tratamiento VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL CHECK (precio >= 0),
@@ -222,4 +222,20 @@ CREATE TABLE IF NOT EXISTS servicio_spa (
         REFERENCES reservas(id_reserva)
 );
 
+/*============================================
+		CREACIÓN DE ÍNDICES
+============================================*/
 
+
+/*============================================
+	Estado Reservas
+		-- Se crea el índice para el estado de la reserva ya que es una búsqueda que es una búsqueda que se realiza en reiteradas ocasiones.
+		-- Su creación permitirá optimizar el rendimiento de las consultas que utilizan la cláusula WHERE en dicho campo, 
+        evitando que se escanee por completo la tabla.
+============================================*/
+
+CREATE INDEX idx_reservas_estado
+ON reservas(estado_reserva);
+
+-- Comprobamos que se ha creado correctaente:
+SHOW INDEX FROM reservas;

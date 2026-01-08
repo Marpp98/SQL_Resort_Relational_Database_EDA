@@ -87,6 +87,7 @@ FROM reservas;
  un 38,55% de las reservas totales de este tipo acaban en cancelaciones por lo que no es un canal muy eficiente.
  -- Por otro lado, tenemos aquellas reservas que se hacen directamente en el hotel cuya tasa de cancelacion se corresponde a un 14,75% lo que es mucho más eficiente.
  */
+ 
 SELECT 
     c.canal_distribucion, 
     COUNT(DISTINCT r.id_reserva) AS total_reservas_unicas,
