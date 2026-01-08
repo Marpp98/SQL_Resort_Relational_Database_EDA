@@ -18,7 +18,7 @@ USE resort_hotelero;
 -- 1. Se desactiva la validación de las claves foráneas para poder ejecutar los borrados de tabla sin que aparezca un error de dependencia.
 -- 2. Tras haberlas borrado, se activa de nuevo su validación.*/
 
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0; 			-- Desactivar
 
 DROP TABLE IF EXISTS servicio_spa;
 DROP TABLE IF EXISTS servicio_comida;
@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS habitaciones;
 DROP TABLE IF EXISTS clientes;
 DROP TABLE IF EXISTS servicios;
 
-SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1; 			-- Activar
 
 
 /*============================================
@@ -225,7 +225,6 @@ CREATE TABLE IF NOT EXISTS servicio_spa (
 /*============================================
 		CREACIÓN DE ÍNDICES
 ============================================*/
-
 
 /*============================================
 	Estado Reservas

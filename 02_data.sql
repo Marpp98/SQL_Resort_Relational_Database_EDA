@@ -7,12 +7,15 @@
 	1. En las instrucciones del trabajo se pedía que el código fuera ejecutable desde 0.
     2. Al tener demasiados registros se demoraba demasiado el tiempo.
 - En las tablas Servicios y Canales solo es necesario poner el tipo de servio o canal ya que su id es automático.
+- En el resto de tablas, a pesar de ser automático en el CSV está dicho dato a excepción de la tabla Spa.
 
 - NOTA: para poder usar LOAD DATA LOCAL INFILE fue necesario hacer unas comprobaciones previas.
 	1. Añadir OPT_LOCAL_INFILE=1 a la configuración.
 	2. Establecer local_infile = 1
     3. SHOW VARIABLES LIKE 'local_infile' para comprobar que verdaderamente está activado;
 */
+-- Base de datos que se va a utilizar:
+USE resort_hotelero;
 
 /* ===============================================
 			Tabla Servicios
@@ -93,7 +96,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 /* ===============================================
-			Tabla Servicio Comida
+			Tabla Servicio Spa
  ================================================= */ 
 
 LOAD DATA LOCAL INFILE 'C:/Users/maria/Desktop/Master_data_science/SQL_Resort_Relational_Database_EDA/data/spa_3.csv'
@@ -101,7 +104,7 @@ INTO TABLE servicio_spa
 FIELDS TERMINATED BY ';' 
 LINES TERMINATED BY '\r\n'
 (id_servicio, id_reserva, tipo_tratamiento, precio)
-SET id_ticket_spa = NULL;
+SET id_ticket_spa = NULL;							-- Campo necesario porque el CSV no tiene la columna que hace referencia a PK
 
 /* ==================================
 			Comprobaciones
@@ -110,9 +113,9 @@ SET id_ticket_spa = NULL;
 select * from habitaciones;
 select * from canales;
 select * from servicios;
-select * from servicio_parking;
 select * from clientes;
 select * from reservas;
+select * from servicio_parking;
 select * from servicio_comida;
 select * from servicio_spa;
 
@@ -136,6 +139,7 @@ En caso de querer vaciar una tabla, pero no borrarla habría que usar el siguien
 ================================== */
 -- Se crea una transacción que garantiza que la contratación de una reserva y el servicio de comida se creen de forma atómica, es decir, o se crean ambas o ninguna.
 
+DROP PROCEDURE IF EXISTS insertar_reserva_y_comida;
 
 DELIMITER $$
 
@@ -152,24 +156,23 @@ CREATE PROCEDURE insertar_reserva_y_comida(
     IN p_deposito DECIMAL(10,2),
     IN p_checkin DATE,
     IN p_checkout DATE,
--- Tabla servicio_comida
     IN p_tipo_comida VARCHAR(50),
-    IN p_precio_total DECIMAL(10,2)
+    IN p_precio_total DECIMAL(10,2) -- Mantenemos este nombre
 )
 BEGIN
-    -- Declaramos una variable para obtener el nuevo id_reserva
     DECLARE v_nuevo_id_reserva INT;
 
-    -- Si algo falla, se hará un  ROLLBACK
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
         ROLLBACK;
+        -- RESIGNAL nos dirá el motivo del fallo en caso de que lo haya.
+        RESIGNAL; 
     END;
-
+	
     -- Iniciamos la transacción
     START TRANSACTION;
-
-    -- 1. Insertamos la reserva en la tabla de hechos
+    
+	-- 1. Insertamos la reserva en la tabla de hechos
     INSERT INTO reservas (
         id_cliente, id_habitacion, id_canal, estado_reserva, 
         adultos, ninos, bebes, deposito, checkin, checkout
@@ -178,19 +181,20 @@ BEGIN
         p_id_cliente, p_id_habitacion, p_id_canal, p_estado, 
         p_adultos, p_ninos, p_bebes, p_deposito, p_checkin, p_checkout
     );
-
-    -- 2. Recuperamos el ID que se acaba de generar para esa reserva
+    
+	-- 2. Recuperamos el ID que se acaba de generar para esa reserva
     SET v_nuevo_id_reserva = LAST_INSERT_ID();
 
-    -- 3. Insertamos en servicio_comida de ese id_reserva. No es necesario poner id_servicio ya que está establecido por defecto en 2.
+    -- 3. Insertamos en servicio_comida de ese id_reserva. No es necesario poner id_servicio ya que está establecido por defecto en 2. 
     INSERT INTO servicio_comida (id_reserva, tipo_comida, precio)
-    VALUES (v_nuevo_id_reserva, p_tipo_comida, p_precio);
-
-    -- 4. Confirmamos los cambios
+    VALUES (v_nuevo_id_reserva, p_tipo_comida, p_precio_total);
+    
+	-- 4. Confirmamos los cambios
     COMMIT;
 END $$
 
 DELIMITER ;
+
 
 -- LLamamos a la transacción
 CALL insertar_reserva_y_comida(
@@ -206,4 +210,37 @@ FROM
 JOIN servicio_comida c ON r.id_reserva = c.id_reserva
 WHERE r.id_reserva = LAST_INSERT_ID();
 
-SELECT * FROM RESERVAS where id_cliente = 1 and id_habitacion = 101 ORDER BY id_reserva DESC ;
+-- Transacción que elimina la reserva y el servicio de comida asociado de forma conjunta.
+DROP PROCEDURE IF EXISTS insertar_reserva_y_comida;
+
+DELIMITER $$
+
+CREATE PROCEDURE eliminar_reserva_completa(IN p_id_reserva INT)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+
+    -- Borramos en orden para respetar la integridad referencial
+    DELETE FROM servicio_comida WHERE id_reserva = p_id_reserva;
+    DELETE FROM reservas WHERE id_reserva = p_id_reserva;
+
+    COMMIT;
+END $$
+
+DELIMITER ;
+
+-- Ejecutamos la transacción para que se elimine la última reserva creada.
+CALL eliminar_reserva_completa(49163);
+
+-- Ejecutando el siguiente código de nuevo confirmamos que se ha borrado correctamente:
+SELECT 
+	*
+FROM 
+	reservas r
+JOIN servicio_comida c ON r.id_reserva = c.id_reserva
+WHERE r.id_reserva = LAST_INSERT_ID();
