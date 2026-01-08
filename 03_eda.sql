@@ -596,7 +596,7 @@ SELECT
             FROM servicio_comida c 
             WHERE c.id_reserva = datos_base.id_reserva), 0) AS coste_comida,
             
-    -- 5. CÁLCULO DEL GRAN TOTAL
+    -- 5. CÁLCULO DEL TOTAL
     ((tarifa * dias_estancia) + 
      IFNULL((SELECT SUM(p.precio_total * dias_estancia) FROM servicio_parking p WHERE p.id_reserva = datos_base.id_reserva), 0) +
      IFNULL((SELECT SUM(s.precio) FROM servicio_spa s WHERE s.id_reserva = datos_base.id_reserva), 0) +
