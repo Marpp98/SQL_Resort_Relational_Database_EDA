@@ -53,7 +53,7 @@ INTO TABLE clientes
 CHARACTER SET ascii
 FIELDS TERMINATED BY ';' 
 LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+IGNORE 1 ROWS;			-- Ignora los títulos de las columnas
 
 /* ===============================================
 			Tabla Habitaciones
