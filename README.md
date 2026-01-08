@@ -20,7 +20,7 @@ Este proyecto se centra en el diseño y la implementación de una base de datos 
 │
 ├── modelo_esquema.png          # Imagen esquemática de la base de datos relacional
 │
-└── modelo_hotel.mwb          # Modelo Entidad-Relación (Diseño visual en MySQL Workbench) 
+└── modelo_hotel.mwb            # Modelo Entidad-Relación (Diseño visual en MySQL Workbench) 
 ```
 
 ## 📊 Diagrama de la Base de Datos (EER)
