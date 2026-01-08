@@ -1,3 +1,5 @@
 data/otros_data/
 comprobacion_datos.ipynb
 *.mwb.bak
+*.mwb.beforefix
+.DS_Store
