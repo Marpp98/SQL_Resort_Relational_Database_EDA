@@ -35,7 +35,7 @@ Se han implementa soluciones avanzadas para la toma de decisiones estratégicas,
 
 - **Cálculo de Estancia Media:** análisis de la duración de las estancias para identificar nichos de mercado.
 
-- **Fidelización Invertida:** monitorización de categorías (Plata, Oro, Diamante) para detectar anomalías en la pirámide de lealtad y prever la renovación generacional de la clientela.
+- **Gestión de Lealtad:** monitorización de categorías (Plata, Oro, Diamante) para analizar la tasa de retención de clientes, detectar anomalías en la pirámide de fidelización y asegurar la sostenibilidad del negocio.
 
 **2. Control Financiero y Optimización de Ingresos**
 - **Facturación Total Detallada:** creación de una vista de facturación que centraliza ingresos por reserva y servicios extra (Spa, Restaurante, Parking).
