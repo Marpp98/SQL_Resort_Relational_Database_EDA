@@ -33,25 +33,29 @@ Se han implementa soluciones avanzadas para la toma de decisiones estratégicas,
 **1. Análisis de Segmentación y Comportamiento del Huésped**
 - **Identificación de Perfiles Dominantes:** clasificación de clientes (Individual, Pareja, Familia, Grupo) mediante lógica de composición de reserva.
 
-- **Cálculo de Estancia Media:** análisis de la duración de las estancias para identificar nichos de mercado como el Day Use (0 días) y perfiles residenciales (60 días).
+- **Cálculo de Estancia Media:** análisis de la duración de las estancias para identificar nichos de mercado.
 
 - **Fidelización Invertida:** monitorización de categorías (Plata, Oro, Diamante) para detectar anomalías en la pirámide de lealtad y prever la renovación generacional de la clientela.
 
 **2. Control Financiero y Optimización de Ingresos**
-- **Facturación Detallada:** creación de una Vista de Facturación que centraliza ingresos por alojamiento y servicios extra (Spa, Restaurante).
+- **Facturación Total Detallada:** creación de una vista de facturación que centraliza ingresos por reserva y servicios extra (Spa, Restaurante, Parking).
 
-- **Función de Análisis Temporal:** implementación de una UDF (User Defined Function) para extraer la facturación mensual y anual, facilitando la auditoría de periodos específicos (ej. Agosto 2015).
+- **Análisis del Spa:** creación de una vista de facturación mensual para el servicio de Spa que permite supervisar la estacionalidad de ingresos y detectar tendencias de consumo.
+
+- **Función de Análisis Temporal:** implementación de una función para extraer la facturación mensual de un año concreto, facilitando la auditoría de periodos específicos (ej. Agosto 2015).
+
+- **Función de Liquidación de Estancia:** implementación de una función que automatiza el cálculo del importe pendiente de pago por cliente. En ella se integra base de la habitación, los depósitos previos y el sumatorio de consumos adicionales, permitiendo una liquidación rápida en el momento del Check-out. También tiene en cuenta descuentos en el servicio de restauración para bebés y niños.
 
 - **Métrica de Valor de Cliente (CLV):** cálculo del gasto acumulado por usuario para identificar a los clientes de alta rentabilidad.
 
 **3. Gestión de Riesgos y Estacionalidad**
-- **Volatilidad de canales:** análisis del Ratio de Cancelación para identificar qué fuentes de reserva (Agencias, Web, Directo) presentan mayor riesgo operativo al comparar estados de Canceled frente a Check-Out.
+- **Volatilidad de canales:** análisis del Ratio de Cancelación para identificar qué fuentes de reserva (Agencias, Web, Directo) presentan mayor riesgo operativo al comparar estados de "Canceled" frente a "Check-Out".
 
 - **Monitorización de Cancelaciones:** identificación de patrones de cancelación por segmento y detección de clientes con alta recurrencia de cancelaciones.
 
-- **Análisis de Estacionalidad:** consultas para determinar los picos de demanda (Primavera), permitiendo una planificación eficiente de personal y mantenimiento.
+- **Análisis de Estacionalidad:** consultas para determinar los picos de demanda, permitiendo una planificación eficiente de personal y mantenimiento.
 
-- **Estrategias de Upselling:** análisis de inventario de habitaciones para fomentar el paso de habitaciones Dobles Interiores a Exteriores basándose en la rentabilidad por categoría.
+- **Estrategias de Upselling:** análisis de inventario de habitaciones para fomentar el paso de habitaciones "Dobles Interiores" a "Dobles Exteriores" basándose en la rentabilidad por categoría.
 
 
 ## 🛠️ Tecnologías Utilizadas
